@@ -45,7 +45,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 32px;
+    padding: 8px 32px;
     background-color: var(--color-acento);
     border-bottom: 1px solid var(--color-bordes)
 }
@@ -106,6 +106,10 @@ header{
 .header__logo img{
     height: 64px;
     border-radius: 20%;
+}
+
+.header__menu-toggle{
+    display: none;
 }
 
 /*Estilos Hero*/
@@ -179,6 +183,8 @@ header{
     
 }
 
+
+
 .artistas-principales__contenedor img{
     width: 100%; /*la imagen ocupa el 100% de su contenedor*/
     height: 300px; /*se pone esta altura fija para que todas sean iguales*/
@@ -207,6 +213,7 @@ header{
 
 .artistas-principales__contenedor figure:hover video{
     opacity: 1 ; /*Lo mostramos al hacer hover*/
+    
 }
 
 /*Seccion de horarios*/
@@ -339,4 +346,67 @@ footer{
 .modal__cerrar:hover{
     transform: rotate(90deg);
     color: white;
+}
+
+/*Media Query para otros dispositivos*/
+@media (max-width: 768px){
+     header {
+    padding: 12px 16px;
+    flex-wrap: wrap; /* Para que los elementos puedan saltar a la siguiente línea */
+  }
+
+  /*Logo mas pequeño*/
+  .header__logo img{
+    height: 48px;
+  }
+
+  /*boton hamburguesa*/
+ .header__menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--color-fondo);
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: auto; /* Lo empuja a la derecha */
+  }
+
+  /* menu oculto por el movil*/
+  .header__nav{
+    display: none;
+    width: 100%;
+    margin-top: 16px;
+    padding: 16px 0;
+    background-color: var(--color-acento);
+    border-top: 1px solid var(--color-bordes);
+  }
+
+  .header__nav.active {
+    display: block; /* Se muestra cuando se hace clic en el boton hamburguesa */
+  }
+  
+   .header__nav ul {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+  
+  .header__nav a {
+    font-size: 16px;
+    padding: 8px 0;
+  }
+
+
+  /*CTA en el movil*/
+  .header__cta{
+    margin-top: 16px;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
+
+
+
+
 }
