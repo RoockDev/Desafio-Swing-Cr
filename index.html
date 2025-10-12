@@ -11,7 +11,9 @@
   </head>
   <body>
     <header>
-      <a href="/" class="header__logo">LOGO</a>
+      <a href="/" class="header__logo">
+        <img src="./src/assets/img/logo.png" alt="logo-swing-cr">
+      </a>
       <nav class="header__nav">
         <ul>
           <li><a href="#horarios">Horarios</a></li>
@@ -67,7 +69,8 @@
 
       <section class="horarios" id="horarios">
         <h2>Horarios</h2>
-        <figure>
+        <div class="horarios__contenedor">
+            <figure>
           <img
             src="./src/assets/img/horarios-de-clases.png"
             alt="Horarios de las clases"
@@ -80,11 +83,14 @@
             alt="Horario de fiestas y eventos sociales"
           />
         </figure>
+        </div>
+        
       </section>
 
       <section class="actividades" id="actividades">
         <h2>Actividades</h2>
-        <div>
+        <div class="actividades__contenedor">
+          <div>
           <h4>Lindy Hop</h4>
           <p>Fecha: Sábado 11</p>
           <p>Hora: Todo el día</p>
@@ -125,6 +131,9 @@
           <p>Hora: 21:00 - 22:00</p>
           <p>Ubicación: Sala New Orleans</p>
         </div>
+
+        </div>
+        
       </section>
 
       <footer>
