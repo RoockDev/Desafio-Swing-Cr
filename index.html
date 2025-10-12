@@ -2,13 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>desafio-swing-cr</title>
   </head>
   <body>
     <header>
-      <a href="/" class="header__logo"></a>
+      <a href="/" class="header__logo">LOGO</a>
       <nav class="header__nav">
         <ul>
           <li><a href="#horarios">Horarios</a></li>
@@ -20,7 +23,7 @@
     </header>
     <main>
       <section class="hero">
-        <h1>Swing Ciudad Real 2026</h1>
+        <h1 class="animate__animated animate__backInDown">Swing Ciudad Real 2026</h1>
         <p>
           Sumérgete en un fin de semana vibrante al ritmo del mejor swing.
           Disfruta de música en directo, aprende de profesores internacionales y
@@ -32,29 +35,34 @@
 
       <section class="artistas-principales">
         <h2>Artistas principales</h2>
-        <figure>
-          <img
-            src="./src/assets/img/hyunjung-Anders.jpeg"
-            alt="Hyunjung y Anders bailando swing"
-          />
-          <figcaption>Hyunjung & Anders</figcaption>
-        </figure>
+        <div class="artistas-principales__contenedor">
+          <figure class="animate__animated animate__fadeInLeftBig animate__delay-3s" >
+            <img
+              src="./src/assets/img/hyunjung-Anders.jpeg"
+              alt="Hyunjung y Anders bailando swing"
+            />
+            <video src="./src/assets/videos/Hyunjung&Anders.mp4 " loop muted></video>
+            <figcaption>Hyunjung & Anders</figcaption>
+          </figure>
 
-        <figure>
-          <img
-            src="./src/assets/img/Marta-Pedro.jpeg"
-            alt="Marta y Pedor bailando swing"
-          />
-          <figcaption>Marta & Pedro</figcaption>
-        </figure>
+          <figure  class="animate__animated animate__fadeInLeftBig animate__delay-2s">
+            <img
+              src="./src/assets/img/Marta-Pedro.jpeg"
+              alt="Marta y Pedor bailando swing"
+            />
+            <video src="./src/assets/videos/Marta&Pedro.mp4" loop muted></video>
+            <figcaption>Marta & Pedro</figcaption>
+          </figure>
 
-        <figure>
-          <img
-            src="./src/assets/img/Swinghappy.jpeg"
-            alt="Bailarin de swing posando"
-          />
-          <figcaption>Swinghappy</figcaption>
-        </figure>
+          <figure  class="animate__animated animate__fadeInLeftBig animate__delay-1s">
+            <img
+              src="./src/assets/img/Swinghappy.jpeg"
+              alt="Bailarin de swing posando"
+            />
+            <video src="./src/assets/videos/Swinghappy.mp4" loop muted></video>
+            <figcaption>Swinghappy</figcaption>
+          </figure>
+        </div>
       </section>
 
       <section class="horarios" id="horarios">
@@ -119,9 +127,9 @@
         </div>
       </section>
 
-     <footer>
-      <p>&copy; 2026 Swing Ciudad Real. Todos los derechos reservados.</p>
-    </footer>
+      <footer>
+        <p>&copy; 2026 Swing Ciudad Real. Todos los derechos reservados.</p>
+      </footer>
     </main>
     <script type="module" src="/src/main.js"></script>
   </body>
