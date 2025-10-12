@@ -112,13 +112,20 @@ header{
     transition: transform 0.3s ease;
 }
 
+.hero p{
+    max-width: 650px;
+    font-size: 18px;
+    text-align: center;
+    line-height: 1.6;
+}
+
 .hero button:hover{
     transform: scale(1.05);
 }
 
 /*Estilos para la seccion principal*/
 .artistas-principales {
-    padding: 64px 32px;
+    padding: 32px;
     text-align: center;
 }
 
