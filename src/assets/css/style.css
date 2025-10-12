@@ -111,3 +111,64 @@ header{
     transform: scale(1.05);
 }
 
+/*Estilos para la seccion principal*/
+.artistas-principales {
+    padding: 64px 32px;
+    text-align: center;
+}
+
+.artistas-principales h2{
+    font-family: var(--fuente-titulos);
+    font-size: 48px;
+    margin-bottom: 32px;
+}
+
+/*Estilos para tarjetas*/
+.artistas-principales__contenedor{
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+}
+
+.artistas-principales__contenedor figure{
+    width: 300px; /*ponemos un ancho fijo para cada tarjeta*/
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+}
+
+.artistas-principales__contenedor figure:hover{
+    transform: scale(1.1);
+    
+}
+
+.artistas-principales__contenedor img{
+    width: 100%; /*la imagen ocupa el 100% de su contenedor*/
+    height: 300px; /*se pone esta altura fija para que todas sean iguales*/
+    object-fit: cover; /*con esta propieda la imagen ocupa todo el espacio sin deformarse*/
+    border-radius: 10%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.artistas-principales__contenedor figcaption {
+    font-family: var(--fuente-titulos);
+    font-size: 24px;
+    margin-top: 16px;
+}
+
+.artistas-principales__contenedor video{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    border-radius: 9%;
+}
+
+.artistas-principales__contenedor figure:hover video{
+    opacity: 1 ; /*Lo mostramos al hacer hover*/
+}
