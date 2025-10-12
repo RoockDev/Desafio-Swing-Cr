@@ -1,13 +1,160 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>desafio-swing-cr</title>
   </head>
   <body>
-    <div id="app"></div>
+    <header>
+      <a href="/" class="header__logo">
+        <img src="./src/assets/img/logo.png" alt="logo-swing-cr">
+      </a>
+
+      <!-- boton hamburguesa -->
+       <button class="header__menu-toggle">
+          ☰
+       </button>
+      <nav class="header__nav" id="main-nav">
+        <ul>
+          <li><a href="#horarios">Horarios</a></li>
+          <li><a href="#actividades">Actividades</a></li>
+          <li><a href="/#mis-actividades.html">Mis actividades</a></li>
+        </ul>
+      </nav>
+      <a href="/inscripcion.html" class="header__cta">Inscribete</a>
+    </header>
+    <main>
+      <section class="hero">
+        <h1 class="animate__animated animate__backInDown">Swing Ciudad Real 2026</h1>
+        <p>
+          Sumérgete en un fin de semana vibrante al ritmo del mejor swing.
+          Disfruta de música en directo, aprende de profesores internacionales y
+          comparte la energía de una comunidad única. ¡La fiesta del año te
+          espera en Ciudad Real!
+        </p>
+        <button>Vive el Swing</button>
+      </section>
+
+      <section class="artistas-principales">
+        <h2>Artistas principales</h2>
+        <div class="artistas-principales__contenedor">
+          <figure class="animate__animated animate__fadeInLeftBig animate__delay-3s" >
+            <img
+              src="./src/assets/img/hyunjung-Anders.jpeg"
+              alt="Hyunjung y Anders bailando swing"
+            />
+            <video src="./src/assets/videos/Hyunjung&Anders.mp4 " loop muted></video>
+            <figcaption>Hyunjung & Anders</figcaption>
+          </figure>
+
+          <figure  class="animate__animated animate__fadeInLeftBig animate__delay-2s">
+            <img
+              src="./src/assets/img/Marta-Pedro.jpeg"
+              alt="Marta y Pedor bailando swing"
+            />
+            <video src="./src/assets/videos/Marta&Pedro.mp4" loop muted></video>
+            <figcaption>Marta & Pedro</figcaption>
+          </figure>
+
+          <figure  class="animate__animated animate__fadeInLeftBig animate__delay-1s">
+            <img
+              src="./src/assets/img/Swinghappy.jpeg"
+              alt="Bailarin de swing posando"
+            />
+            <video src="./src/assets/videos/Swinghappy.mp4" loop muted></video>
+            <figcaption>Swinghappy</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="horarios" id="horarios">
+        <h2>Horarios</h2>
+        <div class="horarios__contenedor">
+            <figure>
+          <img
+            src="./src/assets/img/horarios-de-clases.png"
+            alt="Horarios de las clases"
+          />
+        </figure>
+
+        <figure>
+          <img
+            src="./src/assets/img/horarios-party-pass.png"
+            alt="Horario de fiestas y eventos sociales"
+          />
+        </figure>
+        </div>
+        
+      </section>
+
+      <section class="actividades" id="actividades">
+        <h2>Actividades</h2>
+        <div class="actividades__contenedor">
+          <div>
+          <h4>Lindy Hop</h4>
+          <p>Fecha: Sábado 11</p>
+          <p>Hora: Todo el día</p>
+          <p>Ubicación: Sala Be Hopper</p>
+        </div>
+
+        <div>
+          <h4>Solo Jazz</h4>
+          <p>Fecha: Sábado 11</p>
+          <p>Hora: Todo el día</p>
+          <p>Ubicación: Sala Savoy</p>
+        </div>
+
+        <div>
+          <h4>Taster con Marta y Pedro</h4>
+          <p>Fecha: Viernes 10</p>
+          <p>Hora: 20:00 - 21:00</p>
+          <p>Ubicación: Sala Be Hopper</p>
+        </div>
+
+        <div>
+          <h4>Baile Social</h4>
+          <p>Fecha: Sábado 11</p>
+          <p>Hora: 12:30 - 17:00</p>
+          <p>Ubicación: Parque de Gasset</p>
+        </div>
+
+        <div>
+          <h4>Concierto Fin de Festival</h4>
+          <p>Fecha: Domingo 12</p>
+          <p>Hora: 16:30 - 20:00</p>
+          <p>Ubicación: Antiguo Casino</p>
+        </div>
+
+        <div>
+          <h4>Taster con Dani y Ross</h4>
+          <p>Fecha: Sábado 11</p>
+          <p>Hora: 21:00 - 22:00</p>
+          <p>Ubicación: Sala New Orleans</p>
+        </div>
+
+        </div>
+        
+      </section>
+
+      <footer>
+        <p>&copy; 2026 Swing Ciudad Real. Todos los derechos reservados.</p>
+      </footer>
+    </main>
+    <!-- Modal Video -->
+<div id="modal-video" class="modal">
+  <div class="modal__contenido">
+    <button class="modal__cerrar">&times;</button>
+    <video controls>
+      <source src="./src/assets/videos/SwingCR.mp4" type="video/mp4">
+      Tu navegador no soporta el video
+    </video>
+  </div>
+</div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
