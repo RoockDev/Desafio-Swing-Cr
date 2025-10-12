@@ -41,3 +41,42 @@ body{
     font-family: var(--fuente-cuerpo);
 }
 
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+}
+
+/*Estilos para la lista del menu*/
+.header__nav ul{
+    display: flex;
+    list-style: none;
+    gap: 24px;
+}
+
+/*Estilos para los enlaces del menu*/
+.header__nav a {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-family: var(--fuente-titulos);
+    font-size: 18p;
+}
+
+.header__cta{
+    background-color: var(--color-acento) ;
+    padding: 8px 16px;
+    border-radius: 4px;
+
+    color: var(--color-texto);
+    text-decoration: none;
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+
+    transition: transform 0.3s ease;
+}
+
+.header__cta:hover{
+    transform: scale(1.05);
+}
+
