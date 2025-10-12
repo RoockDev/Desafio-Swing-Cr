@@ -1,0 +1,43 @@
+@font-face {
+  font-family: 'Oswald';
+  src: url('../fonts/Oswald-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+:root{
+    /*Paleta de Colores*/
+    --color-fondo: #3A2821; /*Marron principal*/
+    --color-acento: #FFC300; /*Amarillo Acento*/
+    --color-bordes: #A1887F; /*Tierra secundario*/
+    --color-texto: #FFFFFF; /*Blanco para el texto*/
+    --color_placeholder: #F5F5DC; /*Crema Claro*/
+
+    /*Tipografia*/
+    --fuente-titulos: 'Oswald', sans-serif;
+    --fuente-cuerpo: 'Roboto', sans-serif;
+}
+
+*{
+    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-cuerpo);
+}
+
