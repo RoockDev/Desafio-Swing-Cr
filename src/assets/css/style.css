@@ -108,6 +108,7 @@ header{
     border-radius: 20%;
 }
 
+/*Estilos Hero*/
 .hero {
     display: flex;
     flex-direction: column;
@@ -275,4 +276,12 @@ header{
 .actividades__contenedor > div:hover{
  transform: translateY(-8px); /*Elevamos un poco la tarjeta para darle efecto chulo*/
  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/*Estilizamos footer*/
+footer{
+    text-align: center;
+    background-color: var(--color-acento);
+    color: var(--color-fondo);
+    padding: 5px;
 }
