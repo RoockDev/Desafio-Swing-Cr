@@ -80,3 +80,34 @@ header{
     transform: scale(1.05);
 }
 
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    min-height: 300px;
+}
+
+.hero h1{
+    font-family: var(--fuente-titulos);
+    font-size: 72px;
+    text-align: center;
+}
+
+.hero button{
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.hero button:hover{
+    transform: scale(1.05);
+}
+
