@@ -172,3 +172,30 @@ header{
 .artistas-principales__contenedor figure:hover video{
     opacity: 1 ; /*Lo mostramos al hacer hover*/
 }
+
+/*Seccion de horarios*/
+.horarios{
+    padding: 64px 32px;
+    text-align: center;
+}
+
+.horarios h2{
+    font-family: var(--fuente-titulos);
+    font-size: 48px;
+    margin-bottom: 32px;
+}
+
+.horarios__contenedor{
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.horarios__contenedor img{
+    max-width: 100%; /*Para que la imagen nunca sea mas ancha que su contenedor*/
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
