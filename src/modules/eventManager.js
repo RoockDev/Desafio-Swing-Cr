@@ -1,6 +1,6 @@
-import { actividades } from "./actividadesModales";
-import { Clase } from "../models/Clase";
-import { Actividad } from "../models/Actividad";
+import { actividades } from "./actividadesModales.js";
+import { Clase } from "../models/Clase.js";
+import { Actividad } from "../models/Actividad.js";
 
 /**
  * la siguiente funcion es para poder distinguir si el evento que vamos a seleccionar
