@@ -175,6 +175,56 @@ h1{
     transform: scale(1.02);
 }
 
+/*Estilos de los resultados del formulario*/
+#resultados-actividades{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 48px;
+}
+#resultados-actividades h3{
+    font-family: var(--fuente-titulos);
+    margin-bottom: 16px;
+}
+
+.resultado-act{
+    display: block;
+    background-color: var(--color-acento);
+    color: var(--color-fondo);
+    text-align: center;
+    min-width: 500px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--color-bordes);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.resultado-act:hover{
+    background-color: var(--color_placeholder);
+}
+
+/*Ocultamos el radio button original*/
+.resultado-act input[type="radio"]{
+    display: none;
+}
+
+/*
+*Cuando el usuario marque un boton radio, busca el span de al lado y pone el texto en negrita
+*/
+.resultado-act input[type="radio"]:checked + span{
+    font-weight: bold;
+}
+
+/**
+*con has(que es un selector mas nuevo), selecciona el contenedor y solo si en su interior
+*hay un input radio marcado, todo el fondo cambia de color sin ncesidad de js, una maravilla
+*/
+.resultado-act:has(input[type="radio"]:checked){
+    background-color: var(--color_placeholder);
+}
+
 /*Estilizamos footer*/
 footer{
     text-align: center;
