@@ -54,13 +54,28 @@ diaSelect.addEventListener("change", () => {
        * String(evento.hora).includes(hora), es por que evento.hora a veces es un string
        * pero otras veces es un array si el evento tiene varias horas como metimos en array anteriormente
        * esto convierte tanto el string como el array a texto y comprueba si la hora seleccionada esta ahi
-       * con .includes
+       * incluida
        */
     );
+
+    actividades.innerHTML = '<h3>Actividades Disponibles: </h3>';
     eventosDiaYhora.forEach((evento) => {
-      const p = document.createElement("p");
-      p.textContent = `Disponible: ${evento.nombre} en ${evento.ubicacion}`;
-      actividades.appendChild(p);
+      const label = document.createElement('label');
+      label.className = 'resultado-act'; //para darle estilo luego
+
+      //creamos radio button para poder clicar la actividad que el usuario quiere
+      const radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = 'actividad-seleccionada';
+      radio.value = evento.id;
+
+      const span = document.createElement('span');
+      span.textContent = `${evento.nombre} en ${evento.ubicacion}`;
+
+      label.appendChild(radio);
+      label.appendChild(span);
+      actividades.appendChild(label);
+
     });
   });
 });
