@@ -24,7 +24,7 @@ export {actividades};
         descripcion: 'Disfruta del mejor jazz al estilo New Orleans, Dont worry, be Swinghappy'
     },
     {
-        id:'tastet con Marta y Pedro',
+        id:'taster con Marta y Pedro',
         tipo: 'clase',
         nombre: 'Taster con Marta y Pedro',
         dia: 'Viernes 10',
