@@ -348,6 +348,55 @@ footer{
     color: white;
 }
 
+/*Pantalla modal actividad*/
+.actividad-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /*Oculto por defecto*/
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/*Para que js lo pueda mostrar*/
+.actividad-modal-visible{
+    opacity: 1;
+    visibility: visible;
+}
+
+.actividad-modal__contenido {
+  background-color: var(--color_placeholder);
+  color: var(--color-fondo);
+  padding: 32px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  border: solid 3px var(--color-acento);
+  box-shadow: 0 0 30px rgba(255, 195, 0, 0.4);
+}
+
+.actividad-modal__cerrar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--color-fondo);
+}
+
+
+
 /*Media Query para otros dispositivos*/
 @media (max-width: 768px){
      header {
