@@ -55,7 +55,7 @@
                 <option value="actividad">Actividad</option>
             </select>
         </div>
-        <div id="campos-clase" class="campos-condicionales"></div>
+        
         <div class="form-group">
     <p>¿Hay profesores implicados?</p>
     <div class="radio-group">
@@ -75,7 +75,8 @@
                     <option value="Solo Jazz">Solo Jazz</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div id="campos-clase" class="campos-condicionales-clase">
+                <div class="form-group">
                 <label for="clase-nivel">Nivel:</label>
                 <select id="clase-nivel" name="nivel">
                     <option value="Básico">Básico</option>
@@ -84,17 +85,12 @@
                 </select>
             </div>
             </div>
-            <div id="campos-actividad" class="campos-condicionales">
+            
+            </div>
+            <div id="campos-actividad" class="campos-condicionales-actividad">
                 <div class="form-group">
-    <p>¿Hay profesores implicados?</p>
-    <div class="radio-group">
-        <label>
-            <input type="radio" name="tiene-profesores" value="si"> Sí
-        </label>
-        <label>
-            <input type="radio" name="tiene-profesores" value="no" checked> No
-        </label>
-    </div>
+    
+   
     <div class="form-group">
     <p>¿Toca una banda en directo?</p>
     <div class="radio-group">
@@ -117,10 +113,7 @@
                     <option value="Mix & Match">Mix & Match</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="actividad-banda">Banda (si aplica):</label>
-                <input type="text" id="actividad-banda" name="banda">
-            </div>
+            
             <div class="form-group">
                 <label for="actividad-descripcion">Descripción:</label>
                 <textarea id="actividad-descripcion" name="descripcion" rows="4"></textarea>
@@ -148,5 +141,6 @@
     <footer>
         <p>&copy; 2026 Swing Ciudad Real. Todos los derechos reservados.</p>
       </footer>
+      <script type="module" src="./src/modules/adminForm.js"></script>
 </body>
 </html>
