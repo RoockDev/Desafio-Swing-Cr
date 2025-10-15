@@ -160,6 +160,11 @@ h1 {
   font-family: var(--fuente-cuerpo);
 }
 
+#actividad-descripcion{
+  min-width: 100%;
+  max-width: 100%;
+}
+
 /* Contenedor para los radio buttons */
 .radio-group {
     display: flex;
@@ -195,14 +200,13 @@ hr {
 
 /* --- Logica dependiendo si elige clase o actividad --- */
 /* Ocultamos los campos condicionales por defecto */
-.campos-condicionales {
+.campos-condicionales-clase {
     display: none;
 }
 
-
-
-
-
+.campos-condicionales-actividad{
+    display: none;
+}
 
 
 
