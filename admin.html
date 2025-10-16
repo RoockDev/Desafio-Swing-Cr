@@ -35,7 +35,7 @@
         <form class="admin-form">
             <div class="form-group">
                 <label for="evento-dia">Dia del Evento: </label>
-                <select name="dia" id="evento-dia">
+                <select name="dia" id="evento-dia" required>
                     <option value="">--Elige un dia--</option>
                     <option value="viernes">Viernes</option>
                     <option value="sabado">Sabado</option>
@@ -135,6 +135,7 @@
         <option value="Prado">Prado</option>
     </select>
 </div>
+        <span class="form-message" id="form-message"></span>
         <button type="submit">Siguiente: Ver Ubicaciones</button>
 
 
