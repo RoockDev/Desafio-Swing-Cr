@@ -2,10 +2,11 @@ import { Evento } from "./Evento.js";
 
 export class Actividad extends Evento{
 
-    constructor({profesores,tipo,banda,...restoDePropiedades}){
+    constructor({profesores,actividadTipo,banda,descripcion,...restoDePropiedades}){
         super(restoDePropiedades);
         this.profesores = profesores;
-        this.tipo = tipo;
+        this.actividadTipo = actividadTipo;
         this.banda = banda;
+        this.descripcion = descripcion;
     }
 }
