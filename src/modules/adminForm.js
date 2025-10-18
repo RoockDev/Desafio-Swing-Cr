@@ -49,7 +49,7 @@ const handleFormSubmit = (e) => {
 
   const dia = document.getElementById("evento-dia").value;
   const horaInicio = document.getElementById("evento-hora").value;
-  const horaFin = document.getElementById("evento-fin").value;
+  const duracionHoras = parseInt(document.getElementById("evento-duracion").value);
   const tipo = document.getElementById("tipo-evento").value;
   const estilo = document.getElementById("clase-estilo").value;
   const ubicacion = document.getElementById("evento-ubicacion").value;
@@ -58,87 +58,65 @@ const handleFormSubmit = (e) => {
   ).value;
   const mensajeFormulario = document.getElementById("form-message");
 
-  /**
-   * queremos comprobar que solo se registran eventos entre las 20:00 del viernes(1200 minutos) y las 20:00
-   * del domingo(1200 minutos) ya que es el horario ofical del festival
-   * lo he transformado a minutos por que si lo comparo con horas exactas, para el viernes no habria problema
-   * hacer la validacion, pero para el cierre el domingo si, no podria poner que la hora fin sea justa a las 20:00
-   * tendria que hacerlo a las 19:59 lo cual queda  feo y es poco intuitivo para el usuario, por eso lo hago con minutos
-   */
-
-  const [hInicio, mInicio] = horaInicio.split(":");
-  const totalMinutosInicio = parseInt(hInicio) * 60 + parseInt(mInicio);
-
-  const [hFin, mFin] = horaFin.split(":");
-  const totalMinutosFin = parseInt(hFin) * 60 + parseInt(mFin);
-
-  const HORA_LIMITE_FESTIVAL = 1200;
-  if (
-    (dia === "viernes" && totalMinutosInicio < HORA_LIMITE_FESTIVAL) ||
-    (dia === "domingo" && totalMinutosFin > HORA_LIMITE_FESTIVAL)
-  ) {
+  /**las horas tienen que ser a en punto */
+  const minutosHora = parseInt(horaInicio.split(':')[1]);
+  if (minutosHora!==0) {
     mensajeFormulario.classList.add("form-message--error");
-    mensajeFormulario.textContent =
-      "Error: El horario del festival es del viernes a las 20:00 hasta el domingo a las 20:00";
+    mensajeFormulario.textContent = "La hora de inicio debe ser en punto (ej: 10:00, 11:00).";
     return;
   }
 
-  //queremos que los minutos de las clases para la hora inicio y fin puedan ser incrementos de 5
-  const minutosInicio = parseInt(horaInicio.split(":")[1]);
-  const minutosFin = parseInt(horaFin.split(":")[1]);
+  /**calculamos el tiempo en minutos */
+  const [hora,minutos] = horaInicio.split(":");
+  const totalMinutosInicio = parseInt(hora) * 60 + parseInt(minutos);
+  const totalMinutosFin = totalMinutosInicio + (duracionHoras * 60);
 
-  if (minutosInicio % 5 !== 0 || minutosFin % 5 !== 0) {
+  if (dia === 'viernes' && totalMinutosInicio < 20 * 60) {
     mensajeFormulario.classList.add("form-message--error");
-    mensajeFormulario.textContent =
-      "Las horas deben ser en incrementos de 5 minutos (ej: 10:05, 10:10) ";
+    mensajeFormulario.textContent = "Los eventos del viernes no pueden empezar antes de las 20:00.";
     return;
-  } else {
-    limpiarMensajes();
-  }
+  };
 
-  if (horaFin <= horaInicio) {
-    mensajeFormulario.classList.add("form-message--error");
-    mensajeFormulario.textContent =
-      "Horario incorrecto para registrar, la hora fin debe ser posterior al inicio";
-    return;
-  } else {
-    limpiarMensajes();
-  }
+  if (dia === "domingo" && totalMinutosFin > 20 * 60) {
+        mensajeFormulario.classList.add("form-message--error");
+        mensajeFormulario.textContent = "Los eventos del domingo no pueden terminar despues de las 20:00.";
+        return;
+  };
 
-  //ahora validamos por que queremos que los eventos tengan una duracion minima de 30 min
-  //necesitamos obtener los minutos totales
 
-  //totalMinutosInicio y totalMinutosFin los declaramos arriba encima de la comprobacion de horario de viernes a domingo
 
-  const duracion = totalMinutosFin - totalMinutosInicio;
-  if (duracion < 30) {
-    mensajeFormulario.classList.add("form-message--error");
-    mensajeFormulario.textContent = "La duracion minima debe ser de 30 minutos";
-
-    return;
-  } else {
-    limpiarMensajes();
-  }
+  
 
   //recorremos los eventos para comprobar que no se solapen dia horas y ubicacion
-  for (const eventoGuardado of listaEventos) {
-    if (
-      eventoGuardado.dia === dia &&
-      eventoGuardado.ubicacion === ubicacion &&
-      horaInicio < eventoGuardado.horaFin &&
-      horaFin > eventoGuardado.horaInicio
-    ) {
-      mensajeFormulario.classList.add("form-message--error");
-      mensajeFormulario.textContent =
-        "Esa ubicacion no esta disponible en ese dia y tramo horario";
-      return;
-    }
-  }
+for (const eventoGuardado of listaEventos) {
+  if (eventoGuardado.dia === dia && eventoGuardado.ubicacion === ubicacion) {
+            const [hGuardado, mGuardado] = eventoGuardado.horaInicio.split(':');
+            const inicioGuardado = parseInt(hGuardado) * 60 + parseInt(mGuardado);
+            const finGuardado = inicioGuardado + (eventoGuardado.duracionHoras * 60);
+
+            // Los dos eventos se solapan si uno empieza antes de que el otro termine.
+            if (totalMinutosInicio < finGuardado && totalMinutosFin > inicioGuardado) {
+                mensajeFormulario.classList.add("form-message--error");
+                mensajeFormulario.textContent = "la ubicación ya esta ocupada en ese tramo.";
+                return;
+            }
+        }
+
+ 
+};
+
+//formateamos la hora fin para guardarla
+const horaFin = Math.floor(totalMinutosFin/60) % 24;
+const minutosFin = totalMinutosFin % 60;
+const horaFinStr = `${String(horaFin).padStart(2, '0')}:${String(minutosFin).padStart(2, '0')}`;
+//con padstar le indicamos que queremos dos digitos si no hay dos ponemos un 0
+//asi si ponemos 8 en vez de 8:00 seria 08:00 por ejemplo
 
   const datosEvento = {
     dia: dia,
     horaInicio: horaInicio,
-    horaFin: horaFin,
+    horaFin: horaFinStr,
+    duracionHoras: duracionHoras,
     tipo: tipo,
     profesores: profesores,
     estilo: estilo,
