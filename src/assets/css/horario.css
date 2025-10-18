@@ -36,28 +36,23 @@
 section#sabado .columna-sala {
     /*multiplico la cantidad de horas por 64 para la altura*/
     position: relative;
-    height: 1464px; 
+    height: 1588px; 
 }
 
 /* Altura para las columnas del Viernes */
 section#viernes .columna-sala {
     /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
     position: relative;
-    height: 758px; 
+    height: 312px; 
 }
 
-/* Altura para las columnas del sabado */
-section#sabado .columna-sala {
-    /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
-    position: relative;
-    height: 1464px; 
-}
+
 
 /* Altura para las columnas del domingo */
 section#domingo .columna-sala {
     /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
     position: relative;
-    height: 824px; 
+    height: 1396px; 
 }
 .columna-sala{
     position: relative;
