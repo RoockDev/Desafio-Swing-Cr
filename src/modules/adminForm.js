@@ -58,6 +58,15 @@ const handleFormSubmit = (e) => {
   ).value;
   const mensajeFormulario = document.getElementById("form-message");
 
+  /**no se puede registrar una actividad que pase al dia siguiente debera registrarla en el dia correspondiente */
+  const horaDeInicioNum = parseInt(horaInicio.split(':')[0]);
+
+    if (horaDeInicioNum + duracionHoras > 24) {
+        mensajeFormulario.classList.add("form-message--error");
+        mensajeFormulario.textContent = "Error: La duración del evento no puede hacer que pase al día siguiente. Deberá registrarla en el dia correspondiente";
+        return;
+    }
+
   /**las horas tienen que ser a en punto */
   const minutosHora = parseInt(horaInicio.split(':')[1]);
   if (minutosHora!==0) {
