@@ -28,9 +28,7 @@ export const generarBloqueHoras = (idContenedor, horaInicio, horaFin) => {
 
 /**Bloque horas del viernes */
 generarBloqueHoras('columna-horas-viernes-dia',20,23);
-generarBloqueHoras('columna-horas-viernes-noche',0,6);
 /**bloque horas del sabado */
-generarBloqueHoras('columna-horas-sabado-dia',9,23);
-generarBloqueHoras('columna-horas-sabado-noche',0,6);
+generarBloqueHoras('columna-horas-sabado-dia',0,23);
 /**bloque horas del domingo */
-generarBloqueHoras('columna-horas-domingo-dia',9,20);
+generarBloqueHoras('columna-horas-domingo-dia',0,20);
