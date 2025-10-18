@@ -1,0 +1,121 @@
+@import './style.css';
+
+.contenedor-horario{
+    width: 90%;
+    margin: 32px auto;
+    color: var(--color-texto);
+}
+
+.contenedor-horario h1, .contenedor-horario h2{
+    font-family: var(--fuente-titulos);
+    color: var(--color-acento);
+    text-align: center;
+    margin-bottom: 24px;
+}
+.sala-titulo {
+    font-family: var(--fuente-titulos);
+    color: var(--color-acento);
+    text-align: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-bordes);
+    font-size: 16px; 
+    font-weight: 700;
+    height: 56px;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-horario{
+    display: grid;
+    /*1 columa para horas + 6 columnas para ubicaciones*/
+    grid-template-columns: 80px repeat(6,1fr);
+    border: 1px solid var(--color-bordes);
+}
+/* Altura para las columnas del sabado */
+section#sabado .columna-sala {
+    /*multiplico la cantidad de horas por 64 para la altura*/
+    position: relative;
+    height: 1464px; 
+}
+
+/* Altura para las columnas del Viernes */
+section#viernes .columna-sala {
+    /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
+    position: relative;
+    height: 758px; 
+}
+
+/* Altura para las columnas del sabado */
+section#sabado .columna-sala {
+    /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
+    position: relative;
+    height: 1464px; 
+}
+
+/* Altura para las columnas del domingo */
+section#domingo .columna-sala {
+    /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
+    position: relative;
+    height: 824px; 
+}
+.columna-sala{
+    position: relative;
+    border-left: 1px solid var(--color-bordes);
+    height: 1536px; /*cada minutos es 1px para cuadrar  bien todo, el dia tiene 24 horas por 64px 1440px*/
+}
+
+.grid-fondo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, var(--color-bordes) 1px, trasnparent 1px);
+    background-size: 100% 64px; /*cad etiqueta de alto solo puede ser 60px simulamos hora*/
+    z-index: 1;
+}
+
+/*Estilo para las tarjetas*/
+.evento-card{
+    position: absolute;
+    left: 8px;
+    width: 90%;
+    background-color: var(--color-acento);
+    color: var(--color-fondo);
+    border-radius: 4px;
+    padding: 4px;
+    font-family: var(--fuente-cuerpo);
+    font-weight: 700;
+    z-index: 10;
+    overflow: hidden;
+    border-left: 5px solid #c79800;
+}
+
+/*Estilo para etiqueta de horas*/
+.hora-etiqueta{
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fuente-cuerpo);
+    font-weight: bold;
+    color: var(--color-bordes);
+    font-size: 14px;
+    border-top:  1px solid var(--color-bordes);
+    box-sizing: border-box;
+}
+
+.hora-etiqueta:first-child{
+    border-top: none; /*para que no haya doble borde al principio*/
+}
+
+.hora-etiqueta:last-child{
+    border-bottom: 1px solid var(--color-bordes);
+}
+
+.horas-espacio-vacio{
+    height: 56px;
+    border-bottom: 1px solid var(--color-bordes);
+}
+
