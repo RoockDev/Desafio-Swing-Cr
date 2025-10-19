@@ -1,18 +1,86 @@
 @import './style.css';
 
-.contenedor-horario{
+/* BLOCK: horario */
+.horario {
     width: 90%;
     margin: 32px auto;
     color: var(--color-texto);
 }
 
-.contenedor-horario h1, .contenedor-horario h2{
+.horario__titulo-principal,
+.horario__titulo-dia {
     font-family: var(--fuente-titulos);
     color: var(--color-acento);
     text-align: center;
     margin-bottom: 24px;
 }
-.sala-titulo {
+
+/* BLOCK: grid-horario */
+.grid-horario {
+    display: grid;
+    /*1 columa para horas + 6 columnas para ubicaciones*/
+    grid-template-columns: 80px repeat(6,1fr);
+    border: 1px solid var(--color-bordes);
+}
+
+/* BLOCK: columna-horas */
+.columna-horas {
+    position: relative;
+}
+
+.columna-horas__espacio-vacio {
+    height: 56px;
+    border-bottom: 1px solid var(--color-bordes);
+}
+
+/* BLOCK: hora */
+.hora {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fuente-cuerpo);
+    font-weight: bold;
+    color: var(--color-bordes);
+    font-size: 14px;
+    border-top: 1px solid var(--color-bordes);
+    box-sizing: border-box;
+}
+
+.hora:first-child {
+    border-top: none; /*para que no haya doble borde al principio*/
+}
+
+.hora:last-child {
+    border-bottom: 1px solid var(--color-bordes);
+}
+
+/* BLOCK: sala */
+.sala {
+    position: relative;
+    border-left: 1px solid var(--color-bordes);
+    height: 1536px; /*cada minutos es 1px para cuadrar  bien todo, el dia tiene 24 horas por 64px 1440px*/
+}
+
+/* Altura para las columnas del viernes */
+section#viernes .sala {
+    /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
+    height: 312px; 
+}
+
+/* Altura para las columnas del sabado */
+section#sabado .sala {
+    /*multiplico la cantidad de horas por 64 para la altura*/
+    height: 1588px; 
+}
+
+/* Altura para las columnas del domingo */
+section#domingo .sala {
+    /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
+    height: 1396px; 
+}
+
+.sala__titulo {
     font-family: var(--fuente-titulos);
     color: var(--color-acento);
     text-align: center;
@@ -26,47 +94,13 @@
     justify-content: center;
 }
 
-.grid-horario{
-    display: grid;
-    /*1 columa para horas + 6 columnas para ubicaciones*/
-    grid-template-columns: 80px repeat(6,1fr);
-    border: 1px solid var(--color-bordes);
-}
-/* Altura para las columnas del sabado */
-section#sabado .columna-sala {
-    /*multiplico la cantidad de horas por 64 para la altura*/
-    position: relative;
-    height: 1588px; 
-}
-
-/* Altura para las columnas del Viernes */
-section#viernes .columna-sala {
-    /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
-    position: relative;
-    height: 312px; 
-}
-
-
-
-/* Altura para las columnas del domingo */
-section#domingo .columna-sala {
-    /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
-    position: relative;
-    height: 1396px; 
-}
-.columna-sala{
-    position: relative;
-    border-left: 1px solid var(--color-bordes);
-    height: 1536px; /*cada minutos es 1px para cuadrar  bien todo, el dia tiene 24 horas por 64px 1440px*/
-}
-
-.sala-eventos-container {
+.sala__contenedor-eventos {
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-.grid-fondo{
+.sala__grid-fondo {
     position: absolute;
     top: 0;
     left: 0;
@@ -76,8 +110,8 @@ section#domingo .columna-sala {
     z-index: 1;
 }
 
-/*Estilo para las tarjetas*/
-.evento-card{
+/* BLOCK: evento */
+.evento {
     position: absolute;
     left: 8px;
     width: 90%;
@@ -94,54 +128,100 @@ section#domingo .columna-sala {
     text-align: center;
     gap: 4px;
     font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.evento:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
 
-/*Estilo para las clases*/
-.evento-card--clase {
+/* evento--clase */
+.evento--clase {
     background-color: var(--color-acento);
     color: var(--color-fondo);
     border-left: 5px solid #c79800; 
 }
 
-/*Estilos para las actividades*/
-.evento-card--actividad {
+/* evento--actividad */
+.evento--actividad {
     background-color: var(--color-bordes); 
     color: var(--color-texto); 
     border-left: 5px solid #795548; 
 }
 
-
-.evento-card--small {
+/* evento--small */
+.evento--small {
     /* Hacemos la fuente y los espacios más pequeños */
     font-size: 12px;
     gap: 2px;
 }
 
-/*Estilo para etiqueta de horas*/
-.hora-etiqueta{
-    height: 64px;
+/*  modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    /* Oculto por defecto */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* modal--visible */
+.modal--visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal__contenido {
+    background-color: var(--color_placeholder); 
+    color: var(--color-fondo); 
+    padding: 32px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px; 
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border-top: 5px solid var(--color-acento); 
+}
+
+.modal__boton-cerrar {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    color: var(--color-fondo);
+    transition: transform 0.2s ease;
+}
+
+.modal__boton-cerrar:hover {
+    transform: scale(1.2);
+}
+
+.modal__titulo {
+    font-family: var(--fuente-titulos);
+    color: var(--color-acento);
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 24px;
+}
+
+.modal__contenido p {
     font-family: var(--fuente-cuerpo);
-    font-weight: bold;
-    color: var(--color-bordes);
-    font-size: 14px;
-    border-top:  1px solid var(--color-bordes);
-    box-sizing: border-box;
-}
-
-.hora-etiqueta:first-child{
-    border-top: none; /*para que no haya doble borde al principio*/
-}
-
-.hora-etiqueta:last-child{
-    border-bottom: 1px solid var(--color-bordes);
-}
-
-.horas-espacio-vacio{
-    height: 56px;
-    border-bottom: 1px solid var(--color-bordes);
+    line-height: 1.6;
+    margin-bottom: 8px;
 }
 

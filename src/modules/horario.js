@@ -10,7 +10,7 @@ export const generarBloqueHoras = (idContenedor, horaInicio, horaFin) => {
         const horadDiv = document.createElement('div');
 
         //para aplicarle estilos
-        horadDiv.classList.add('hora-etiqueta');
+        horadDiv.classList.add('hora');
 
         /**ahora formateamos por si acaso se mete un hora que por ejemplo sea 8
          * pues queremos que salga 08:00, vamos dos digitos y padstart el primer numero
@@ -49,7 +49,7 @@ const pintarEventosEnTablon = () =>{
 
     //  creamos la  tarjeta
     const tarjetaEvento = document.createElement('div');
-    tarjetaEvento.classList.add('evento-card'); // Agregar clase base
+    tarjetaEvento.classList.add('evento'); // Agregar clase base BEM
     
     // detecta si es clase o actividad por als propiedades
     // Clase tiene 'nivel', Actividad tiene 'actividadTipo'
@@ -58,7 +58,7 @@ const pintarEventosEnTablon = () =>{
     
     if (esClase) {
         
-        tarjetaEvento.classList.add('evento-card--clase');
+        tarjetaEvento.classList.add('evento--clase');
         tarjetaEvento.innerHTML = `
             <strong>${evento.estilo}</strong>
             <span>${evento.nivel}</span>
@@ -66,7 +66,7 @@ const pintarEventosEnTablon = () =>{
         `;
     } else if (esActividad) {
         
-        tarjetaEvento.classList.add('evento-card--actividad');
+        tarjetaEvento.classList.add('evento--actividad');
         tarjetaEvento.innerHTML = `
             <strong>${evento.actividadTipo}</strong>
             <span>${evento.estilo}</span>
@@ -75,7 +75,7 @@ const pintarEventosEnTablon = () =>{
     }
 
 if (evento.duracionHoras === 1) {
-        tarjetaEvento.classList.add('evento-card--small');
+        tarjetaEvento.classList.add('evento--small');
     }
 
     //  calcular la posición y el tamaño
@@ -117,9 +117,75 @@ if (posicionTop >= 0) {
     const contenedorSala = document.getElementById(idContenedor);
     if (contenedorSala) {
         contenedorSala.appendChild(tarjetaEvento);
+        
+        // Agregar evento click para abrir el modal
+        tarjetaEvento.addEventListener('click', () => {
+            abrirModal(evento);
+        });
     }
 }
 
 };
 
 pintarEventosEnTablon();
+
+
+
+const modal = document.getElementById('evento-modal');
+const botonCerrar = document.getElementById('modal-close-btn');
+
+// Función para abrir el modal
+const abrirModal = (evento) => {
+    // Rellenar el contenido del modal
+    document.getElementById('modal-titulo').textContent = evento.estilo;
+    document.getElementById('modal-horario').textContent = `${evento.horaInicio} - ${evento.horaFin}`;
+    document.getElementById('modal-ubicacion').textContent = evento.ubicacion;
+    
+    
+    const detallesExtra = document.getElementById('modal-detalles-extra');
+    
+    if (evento.nivel) {
+        // Es una clase
+        detallesExtra.innerHTML = `
+            <p><strong>Tipo:</strong> Clase</p>
+            <p><strong>Nivel:</strong> ${evento.nivel}</p>
+            <p><strong>Profesores:</strong> ${evento.profesores}</p>
+        `;
+    } else if (evento.actividadTipo) {
+        // Es una actividad
+        
+        
+        let tieneBanda;
+        if (evento.banda === 'si') {
+            tieneBanda = 'Sí';
+        } else {
+            tieneBanda = 'No';
+        }
+        
+        detallesExtra.innerHTML = `
+            <p><strong>Tipo:</strong> Actividad</p>
+            <p><strong>Actividad:</strong> ${evento.actividadTipo}</p>
+            <p><strong>Descripción:</strong> ${evento.descripcion || 'No disponible'}</p>
+            <p><strong>Banda en vivo:</strong> ${tieneBanda}</p>
+        `;
+    }
+    
+    // Mostrar el modal
+    modal.classList.add('modal--visible');
+};
+
+// cerrar el modal
+const cerrarModal = () => {
+    modal.classList.remove('modal--visible');
+};
+
+//  cerrar con el botón X
+botonCerrar.addEventListener('click', cerrarModal);
+
+// cerrar haciendo click fuera del contenido
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        cerrarModal();
+    }
+});
+
