@@ -22,6 +22,62 @@ const tipoEvento = () => {
 
 tipoEvento();
 
+//  select de horas segun dia seleccionado asi nos ceñimos al horario
+const poblarSelectHoras = () => {
+  const selectDia = document.getElementById("evento-dia");
+  const selectUbicacion = document.getElementById("evento-ubicacion");
+  const selectHora = document.getElementById("evento-hora");
+
+  const actualizarHorasDisponibles = () => {
+    const dia = selectDia.value;
+    const ubicacion = selectUbicacion.value;
+    
+    // Limpiar opciones
+    selectHora.innerHTML = '<option value="">-- Selecciona una hora --</option>';
+    
+    if (!dia) return;
+
+    // Rangos de horas por día
+    const rangosPorDia = {
+      viernes: { min: 20, max: 23 },
+      sabado: { min: 0, max: 23 },
+      domingo: { min: 0, max: 20 }
+    };
+
+    const rango = rangosPorDia[dia];
+    if (!rango) return;
+
+    // Obtener eventos guardados
+    const eventosGuardados = JSON.parse(localStorage.getItem("eventos")) || []; //si no hay se crea una vacia
+
+    // Generar opciones de horas
+    for (let hora = rango.min; hora <= rango.max; hora++) {
+      const horaFormateada = `${String(hora).padStart(2, '0')}:00`;
+      
+      // Verificar si está ocupada 
+      let ocupada = false;
+      if (ubicacion) {
+        ocupada = eventosGuardados.some(ev => 
+          ev.dia === dia && 
+          ev.ubicacion === ubicacion && 
+          ev.horaInicio === horaFormateada
+        );
+      }
+
+      const option = document.createElement('option');
+      option.value = horaFormateada;
+      option.textContent = horaFormateada + (ocupada ? ' (ocupada)' : '');
+      option.disabled = ocupada;
+      selectHora.appendChild(option);
+    }
+  };
+
+  selectDia.addEventListener('change', actualizarHorasDisponibles);
+  selectUbicacion.addEventListener('change', actualizarHorasDisponibles);
+};
+
+poblarSelectHoras();
+
 const limpiarMensajes = () => {
   const mensajeFormulario = document.getElementById("form-message");
   mensajeFormulario.classList.remove(
@@ -49,7 +105,6 @@ const handleFormSubmit = (e) => {
 
   const dia = document.getElementById("evento-dia").value;
   const horaInicio = document.getElementById("evento-hora").value;
-  const duracionHoras = parseInt(document.getElementById("evento-duracion").value);
   const tipo = document.getElementById("tipo-evento").value;
   const estilo = document.getElementById("clase-estilo").value;
   const ubicacion = document.getElementById("evento-ubicacion").value;
@@ -58,74 +113,35 @@ const handleFormSubmit = (e) => {
   ).value;
   const mensajeFormulario = document.getElementById("form-message");
 
-  /**no se puede registrar una actividad que pase al dia siguiente debera registrarla en el dia correspondiente */
-  const horaDeInicioNum = parseInt(horaInicio.split(':')[0]);
-
-    if (horaDeInicioNum + duracionHoras > 24) {
-        mensajeFormulario.classList.add("form-message--error");
-        mensajeFormulario.textContent = "Error: La duración del evento no puede hacer que pase al día siguiente. Deberá registrarla en el dia correspondiente";
-        return;
-    }
-
-  /**las horas tienen que ser a en punto */
+  // Validar que la hora esté en punto 
   const minutosHora = parseInt(horaInicio.split(':')[1]);
-  if (minutosHora!==0) {
+  if (minutosHora !== 0) {
     mensajeFormulario.classList.add("form-message--error");
-    mensajeFormulario.textContent = "La hora de inicio debe ser en punto (ej: 10:00, 11:00).";
+    mensajeFormulario.textContent = "La hora de inicio debe ser en punto.";
     return;
   }
 
-  /**calculamos el tiempo en minutos */
-  const [hora,minutos] = horaInicio.split(":");
-  const totalMinutosInicio = parseInt(hora) * 60 + parseInt(minutos);
-  const totalMinutosFin = totalMinutosInicio + (duracionHoras * 60);
+  // Calcular horaFin automáticamente (+1 hora)
+  const horaInicioNum = parseInt(horaInicio.split(':')[0], 10);
+  const horaFinNum = (horaInicioNum + 1) % 24;
+  const horaFinStr = `${String(horaFinNum).padStart(2, '0')}:00`;
 
-  if (dia === 'viernes' && totalMinutosInicio < 20 * 60) {
+  // si ya existe
+  const conflicto = listaEventos.find(evento => 
+    evento.dia === dia && 
+    evento.ubicacion === ubicacion && 
+    evento.horaInicio === horaInicio
+  );
+
+  if (conflicto) {
     mensajeFormulario.classList.add("form-message--error");
-    mensajeFormulario.textContent = "Los eventos del viernes no pueden empezar antes de las 20:00.";
+    mensajeFormulario.textContent = "Ya existe un evento en ese horario y ubicación.";
     return;
-  };
-
-  if (dia === "domingo" && totalMinutosFin > 20 * 60) {
-        mensajeFormulario.classList.add("form-message--error");
-        mensajeFormulario.textContent = "Los eventos del domingo no pueden terminar despues de las 20:00.";
-        return;
-  };
-
-
-
-  
-
-  //recorremos los eventos para comprobar que no se solapen dia horas y ubicacion
-for (const eventoGuardado of listaEventos) {
-  if (eventoGuardado.dia === dia && eventoGuardado.ubicacion === ubicacion) {
-            const [hGuardado, mGuardado] = eventoGuardado.horaInicio.split(':');
-            const inicioGuardado = parseInt(hGuardado) * 60 + parseInt(mGuardado);
-            const finGuardado = inicioGuardado + (eventoGuardado.duracionHoras * 60);
-
-            // Los dos eventos se solapan si uno empieza antes de que el otro termine.
-            if (totalMinutosInicio < finGuardado && totalMinutosFin > inicioGuardado) {
-                mensajeFormulario.classList.add("form-message--error");
-                mensajeFormulario.textContent = "la ubicación ya esta ocupada en ese tramo.";
-                return;
-            }
-        }
-
- 
-};
-
-//formateamos la hora fin para guardarla
-const horaFin = Math.floor(totalMinutosFin/60) % 24;
-const minutosFin = totalMinutosFin % 60;
-const horaFinStr = `${String(horaFin).padStart(2, '0')}:${String(minutosFin).padStart(2, '0')}`;
-//con padstar le indicamos que queremos dos digitos si no hay dos ponemos un 0
-//asi si ponemos 8 en vez de 8:00 seria 08:00 por ejemplo
+  }
 
   const datosEvento = {
     dia: dia,
     horaInicio: horaInicio,
-    horaFin: horaFinStr,
-    duracionHoras: duracionHoras,
     tipo: tipo,
     profesores: profesores,
     estilo: estilo,
@@ -143,12 +159,10 @@ const horaFinStr = `${String(horaFin).padStart(2, '0')}:${String(minutosFin).pad
     datosEvento.descripcion = descripcion;
     datosEvento.banda = banda;
     nuevoEvento = new Actividad(datosEvento);
-    console.log("Instancia de actiivdad creada ", nuevoEvento);
   } else {
     const nivel = document.getElementById("clase-nivel").value;
     datosEvento.nivel = nivel;
     nuevoEvento = new Clase(datosEvento);
-    console.log("instancia de clase creada", nuevoEvento);
   }
 
   mensajeFormulario.classList.add("form-message--success");
