@@ -1,191 +1,219 @@
-export const generarBloqueHoras = (idContenedor, horaInicio, horaFin) => {
-    
-    const contenedor = document.getElementById(idContenedor);
-    if (!contenedor) {
-        return;         //si por lo que sea no existe el contenedor se va
-    };
-
-    //ahora quiero recorrer todas las horas
-    for(let hora = horaInicio; hora <= horaFin; hora++){
-        const horadDiv = document.createElement('div');
-
-        //para aplicarle estilos
-        horadDiv.classList.add('hora');
-
-        /**ahora formateamos por si acaso se mete un hora que por ejemplo sea 8
-         * pues queremos que salga 08:00, vamos dos digitos y padstart el primer numero
-         * dentro del parentesis indica la cantidad de digitos que se quiere
-         * y el 0 con lo que queremos que se rellene si ponemos menos de 2 digitos
-         */
-
-        const horaFormateada = `${String(hora).padStart(2,'0')}:00`;
-        horadDiv.textContent = horaFormateada;
-
-        contenedor.appendChild(horadDiv);
-    }
-
+// Aquí defino las horas de inicio y fin de cada día del festival
+// El viernes empieza a las 20:00 y termina a las 23:00
+// El sábado va de 00:00 a 23:00 (todo el día)
+// El domingo va de 00:00 a 20:00
+const horasDeDias = {
+  viernes: { min: 20, max: 23 },
+  sabado: { min: 0, max: 23 },
+  domingo: { min: 0, max: 20 }
 };
 
-/**Bloque horas del viernes */
-generarBloqueHoras('columna-horas-viernes-dia',20,23);
-/**bloque horas del sabado */
-generarBloqueHoras('columna-horas-sabado-dia',0,23);
-/**bloque horas del domingo */
-generarBloqueHoras('columna-horas-domingo-dia',0,20);
+// Array con los nombres de todas las salas del festival
+// Esto lo uso para crear las columnas de la tabla
+const salas = [
+  'Sala Be Hopper',
+  'Sala New Orleans',
+  'Sala Savoy',
+  'Antiguo Casino',
+  'Parque de Gasset',
+  'Prado'
+];
 
-const pintarEventosEnTablon = () =>{
-    let eventosGuardados = localStorage.getItem("eventos");
-  let listaEventos;
-  if (eventosGuardados === null) {
-    listaEventos = [];
-  } else {
-    listaEventos = JSON.parse(eventosGuardados);
-  };
+// Esta función crea todas las filas de la tabla de cada día
+// Por ejemplo si le paso viernes crea las filas de 20:00 a 23:00 ya que son sus horas
+const generarFilasTabla = (dia) => {
+  // Busco el tbody del día 
+  const tbody = document.getElementById(`tbody-${dia}`);
+  // Si no existe me voy
+  if (!tbody) return;
 
-  for (const evento of listaEventos) {
+  // Cojo las horas de inicio y fin de ese día
+  const horasDia = horasDeDias[dia]; 
+  // Vacío el tbody por si tenía algo antes
+  tbody.innerHTML = '';
+
+  // Recorro todas las horas del día desde min hasta max
+  for (let hora = horasDia.min; hora <= horasDia.max; hora++) {
+    // Creo una nueva fila (tr) cada día tendra cantidad distinta 
+    const tr = document.createElement('tr');
     
-    // DEBUG: Ver qué contiene cada evento
-    console.log("Evento:", evento);
+    // Formateo la hora para que salga chula (08:00 en vez de 8:00)
+    const horaFormateada = `${String(hora).padStart(2, '0')}:00`;
 
-    //  creamos la  tarjeta
-    const tarjetaEvento = document.createElement('div');
-    tarjetaEvento.classList.add('evento'); // Agregar clase base BEM
-    
-    // detecta si es clase o actividad por als propiedades
-    // Clase tiene 'nivel', Actividad tiene 'actividadTipo'
-    const esClase = evento.nivel;
-    const esActividad = evento.actividadTipo;
-    
-    if (esClase) {
-        
-        tarjetaEvento.classList.add('evento--clase');
-        tarjetaEvento.innerHTML = `
-            <strong>${evento.estilo}</strong>
-            <span>${evento.nivel}</span>
-            <span>${evento.horaInicio} - ${evento.horaFin}</span>
-        `;
-    } else if (esActividad) {
-        
-        tarjetaEvento.classList.add('evento--actividad');
-        tarjetaEvento.innerHTML = `
-            <strong>${evento.actividadTipo}</strong>
-            <span>${evento.estilo}</span>
-            <span>${evento.horaInicio} - ${evento.horaFin}</span>
-        `;
-    }
+    // Creo la primera celda de la fila (la que muestra la hora)
+    const tdHora = document.createElement('td');
+    tdHora.classList.add('celda-hora'); // Le pongo la clase para los estilos
+    tdHora.textContent = horaFormateada; // Escribo la hora dentro
+    tr.appendChild(tdHora); // La añado a la fila
 
-if (evento.duracionHoras === 1) {
-        tarjetaEvento.classList.add('evento--small');
-    }
+    // Ahora creo una celda para cada sala (6 celdas, una por sala)
+    salas.forEach((sala, indiceSala) => {
+      const td = document.createElement('td');
+      td.classList.add('celda-sala'); // Clase para estilos
+      
+      
+      
+      td._dia = dia; // En qué día está esta celda (viernes, sábado...)
+      td._hora = horaFormateada; // (20:00, 21:00...)
+      td._sala = sala; //  (Sala Be Hopper  etc...)
+      td._indiceSala = indiceSala; // El número de columna (0, 1, 2...) para saber si es la misma sala
+      
+      tr.appendChild(td); // Añado la celda a la fila
+    });
 
-    //  calcular la posición y el tamaño
- // hora de inicio  de cada tabla 
-const horaInicioVisualDia = {
-    viernes: 20, 
-    sabado: 0,   
-    domingo: 0   
+    // Añado la fila completa al tbody
+    tbody.appendChild(tr);
+  }
 };
 
-//obtenemos la hora de inicio del evento
-const horaInicioNum = parseInt(evento.horaInicio.split(':')[0]);
-// calculamos la posición
-const posicionTop = (horaInicioNum - horaInicioVisualDia[evento.dia]) * 64;
-// calculamos la altura
-const altura = evento.duracionHoras * 64;
-tarjetaEvento.style.height = `${altura}px`;
-if (posicionTop >= 0) {
-    tarjetaEvento.style.top = `${posicionTop}px`;
-}
+//generamos las tablas de los 3 días
+generarFilasTabla('viernes');
+generarFilasTabla('sabado');
+generarFilasTabla('domingo');
 
-    //esto es para que el nombre de la ubicacion coincida con el nombre del id que tengo en el html
-    const ubicaciones = {
-        'Sala Be Hopper': 'sala-be-hopper',
-        'Sala New Orleans': 'sala-new-orleans',
-        'Sala Savoy': 'sala-savoy',
-        'Antiguo Casino': 'casino',
-        'Parque de Gasset': 'gasset',
-        'Prado': 'prado'
-    };
-    const idUbicacion = ubicaciones[evento.ubicacion];
-    if (!idUbicacion) {
-        return; // me salgo para que no de error
+
+
+// Esto para cuando se recarga la pagina saber que celdas pintar y que aparezcan
+const encontrarCelda = (dia, hora, sala) => {
+  const todasLasCeldas = document.querySelectorAll('.celda-sala');
+  for (let celda of todasLasCeldas) {
+    // Compruebo si los datos coinciden día hora y sala
+    if (celda._dia === dia && celda._hora === hora && celda._sala === sala) {
+      return celda; // la devuelvo
     }
-
-    const idContenedor = `${idUbicacion}-${evento.dia}`; // asi junto el nombre de la ubicacion con el dia ya que en cada cuadrado esta nombreUbicacion + dia
-
-    //añadimos la tarjeta al horario
-    const contenedorSala = document.getElementById(idContenedor);
-    if (contenedorSala) {
-        contenedorSala.appendChild(tarjetaEvento);
-        
-        // Agregar evento click para abrir el modal
-        tarjetaEvento.addEventListener('click', () => {
-            abrirModal(evento);
-        });
-    }
-}
-
+  }
+  return null; // No se encuentra ninguna que coincida
 };
 
-pintarEventosEnTablon();
+
+
+// Se pintan en el tablon
+const pintarEventosEnTablon = () => {
+  const eventosGuardados = localStorage.getItem("eventos");
+  const listaEventos = eventosGuardados ? JSON.parse(eventosGuardados) : [];
+  listaEventos.forEach(evento => {
+    const celda = encontrarCelda(evento.dia, evento.horaInicio, evento.ubicacion);
+    
+    // Si no encuentro la celda me voy
+    if (!celda) return;
+
+    
+    const tarjeta = document.createElement('div');
+    tarjeta.classList.add('evento'); 
+    tarjeta.draggable = true; 
+    
+    // Guardo una referencia al evento original dentro de la tarjeta
+    // Con esto puedo acceder a todos los datos de sde la tarjeta
+    tarjeta._eventoOriginal = evento;
+
+    // Dependiendo del tipo de evento, pinto la tarjeta de un color u otro
+    if (evento.nivel) {
+      // Es una clase
+      tarjeta.classList.add('evento--clase'); 
+      tarjeta.innerHTML = `
+        <strong>${evento.estilo}</strong>
+        <span>${evento.nivel}</span>
+        <span>${evento.horaInicio}-${evento.horaFin}</span>
+      `;
+    } else if (evento.actividadTipo) {
+      // Es una actividad 
+      tarjeta.classList.add('evento--actividad'); 
+      tarjeta.innerHTML = `
+        <strong>${evento.actividadTipo}</strong>
+        <span>${evento.estilo}</span>
+        <span>${evento.horaInicio}-${evento.horaFin}</span>
+      `;
+    }
+    celda.appendChild(tarjeta);
+    
+   
+    tarjeta.addEventListener('click', () => {
+      abrirModal(evento); 
+    });
+    
+    configurarDragAndDrop(tarjeta);
+  });
+};
 
 
 
+// Modal
 const modal = document.getElementById('evento-modal');
 const botonCerrar = document.getElementById('modal-close-btn');
 
-// Función para abrir el modal
+// 
 const abrirModal = (evento) => {
-    // Rellenar el contenido del modal
-    document.getElementById('modal-titulo').textContent = evento.estilo;
-    document.getElementById('modal-horario').textContent = `${evento.horaInicio} - ${evento.horaFin}`;
-    document.getElementById('modal-ubicacion').textContent = evento.ubicacion;
+    // Si el modal no existe en el HTML me voy
+    if (!modal) return;
     
-    
+    const titulo = document.getElementById('modal-titulo');
+    const horario = document.getElementById('modal-horario');
+    const ubicacion = document.getElementById('modal-ubicacion');
     const detallesExtra = document.getElementById('modal-detalles-extra');
     
-    if (evento.nivel) {
-        // Es una clase
-        detallesExtra.innerHTML = `
-            <p><strong>Tipo:</strong> Clase</p>
-            <p><strong>Nivel:</strong> ${evento.nivel}</p>
-            <p><strong>Profesores:</strong> ${evento.profesores}</p>
-        `;
-    } else if (evento.actividadTipo) {
-        // Es una actividad
-        
-        
-        let tieneBanda;
-        if (evento.banda === 'si') {
-            tieneBanda = 'Sí';
-        } else {
-            tieneBanda = 'No';
-        }
-        
-        detallesExtra.innerHTML = `
-            <p><strong>Tipo:</strong> Actividad</p>
-            <p><strong>Actividad:</strong> ${evento.actividadTipo}</p>
-            <p><strong>Descripción:</strong> ${evento.descripcion || 'No disponible'}</p>
-            <p><strong>Banda en vivo:</strong> ${tieneBanda}</p>
-        `;
+    
+    if (titulo) {
+        titulo.textContent = evento.estilo || '';
+    }
+    if (horario) {
+        horario.textContent = `${evento.horaInicio} - ${evento.horaFin}`;
+    }
+    if (ubicacion) {
+        ubicacion.textContent = evento.ubicacion || '';
     }
     
-    // Mostrar el modal
+    
+    if (detallesExtra) {
+        if (evento.nivel) {
+            // Es una clase
+            detallesExtra.innerHTML = `
+                <p><strong>Tipo:</strong> Clase</p>
+                <p><strong>Nivel:</strong> ${evento.nivel}</p>
+                <p><strong>Profesores:</strong> ${evento.profesores}</p>
+            `;
+        } else if (evento.actividadTipo) {
+            // Es una actividad 
+            let tieneBanda;
+            if (evento.banda === 'si') {
+                tieneBanda = 'Sí';
+            } else {
+                tieneBanda = 'No';
+            }
+            
+            detallesExtra.innerHTML = `
+                <p><strong>Tipo:</strong> Actividad</p>
+                <p><strong>Actividad:</strong> ${evento.actividadTipo}</p>
+                <p><strong>Descripción:</strong> ${evento.descripcion || 'No disponible'}</p>
+                <p><strong>Banda en vivo:</strong> ${tieneBanda}</p>
+            `;
+        }
+    }
+    
+    
     modal.classList.add('modal--visible');
 };
 
-// cerrar el modal
+
 const cerrarModal = () => {
-    modal.classList.remove('modal--visible');
+    if (modal) {
+        modal.classList.remove('modal--visible');
+    }
 };
 
-//  cerrar con el botón X
-botonCerrar.addEventListener('click', cerrarModal);
+if (botonCerrar) {
+    botonCerrar.addEventListener('click', cerrarModal);
+}
 
-// cerrar haciendo click fuera del contenido
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        cerrarModal();
-    }
-});
+// se cerrar el modal haciendo click fuera del propio modal
+
+if (modal) {
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            cerrarModal();
+        }
+    });
+}
+
+
+pintarEventosEnTablon();
 

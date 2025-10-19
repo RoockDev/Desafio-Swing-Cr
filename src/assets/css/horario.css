@@ -1,8 +1,8 @@
 @import './style.css';
 
-/* BLOCK: horario */
+
 .horario {
-    width: 90%;
+    width: 95%;
     margin: 32px auto;
     color: var(--color-texto);
 }
@@ -15,150 +15,112 @@
     margin-bottom: 24px;
 }
 
-/* BLOCK: grid-horario */
-.grid-horario {
-    display: grid;
-    /*1 columa para horas + 6 columnas para ubicaciones*/
-    grid-template-columns: 80px repeat(6,1fr);
+
+.tabla-horario {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 48px;
+    font-family: var(--fuente-cuerpo);
+}
+
+.tabla-horario thead {
+    background-color: var(--color-acento);
+    color: var(--color-fondo);
+}
+
+.tabla-horario th {
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: 700;
     border: 1px solid var(--color-bordes);
 }
 
-/* BLOCK: columna-horas */
-.columna-horas {
-    position: relative;
+.tabla-horario th.columna-hora {
+    width: 80px;
 }
 
-.columna-horas__espacio-vacio {
-    height: 56px;
-    border-bottom: 1px solid var(--color-bordes);
-}
-
-/* BLOCK: hora */
-.hora {
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--fuente-cuerpo);
-    font-weight: bold;
-    color: var(--color-bordes);
-    font-size: 14px;
-    border-top: 1px solid var(--color-bordes);
-    box-sizing: border-box;
-}
-
-.hora:first-child {
-    border-top: none; /*para que no haya doble borde al principio*/
-}
-
-.hora:last-child {
-    border-bottom: 1px solid var(--color-bordes);
-}
-
-/* BLOCK: sala */
-.sala {
-    position: relative;
-    border-left: 1px solid var(--color-bordes);
-    height: 1536px; /*cada minutos es 1px para cuadrar  bien todo, el dia tiene 24 horas por 64px 1440px*/
-}
-
-/* Altura para las columnas del viernes */
-section#viernes .sala {
-    /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
-    height: 312px; 
-}
-
-/* Altura para las columnas del sabado */
-section#sabado .sala {
-    /*multiplico la cantidad de horas por 64 para la altura*/
-    height: 1588px; 
-}
-
-/* Altura para las columnas del domingo */
-section#domingo .sala {
-    /*multiplico la cantidad de horas + el hueco vacio por 64 para la altura*/
-    height: 1396px; 
-}
-
-.sala__titulo {
-    font-family: var(--fuente-titulos);
-    color: var(--color-acento);
-    text-align: center;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--color-bordes);
-    font-size: 16px; 
-    font-weight: 700;
-    height: 56px;   
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sala__contenedor-eventos {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.sala__grid-fondo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: 100% 64px; /*cad etiqueta de alto solo puede ser 60px simulamos hora*/
-    z-index: 1;
-}
-
-/* BLOCK: evento */
-.evento {
-    position: absolute;
-    left: 8px;
-    width: 90%;
-    border-radius: 4px;
+.tabla-horario td {
+    border: 1px solid var(--color-bordes);
     padding: 4px;
+    text-align: center;
+    vertical-align: middle;
+    height: 60px;
+    position: relative;
+}
+
+.celda-hora {
+    background-color: var(--color_placeholder);
+    color: var(--color-bordes);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.celda-sala {
+    background-color: var(--color-fondo);
+    min-width: 120px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.celda-sala:hover {
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+/*  drag hover */
+.celda-hover-valido {
+    background-color: rgba(76, 175, 80, 0.2) !important;
+    outline: 2px dashed #4caf50;
+}
+
+.celda-hover-invalido {
+    background-color: rgba(244, 67, 54, 0.2) !important;
+    outline: 2px dashed #f44336;
+}
+
+.celda-hover-prohibido {
+    background-color: rgba(255, 107, 107, 0.3) !important;
+    outline: 2px dashed #ff6b6b;
+    cursor: not-allowed;
+}
+
+
+.evento {
+    border-radius: 4px;
+    padding: 6px;
     font-family: var(--fuente-cuerpo);
     font-weight: 700;
-    z-index: 10;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 4px;
-    font-size: 14px;
-    cursor: pointer;
+    gap: 2px;
+    font-size: 12px;
+    cursor: move;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .evento:hover {
-    transform: scale(1.02);
+    transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* evento--clase */
+
 .evento--clase {
     background-color: var(--color-acento);
     color: var(--color-fondo);
-    border-left: 5px solid #c79800; 
+    border-left: 4px solid #c79800;
 }
 
-/* evento--actividad */
 .evento--actividad {
-    background-color: var(--color-bordes); 
-    color: var(--color-texto); 
-    border-left: 5px solid #795548; 
+    background-color: var(--color-bordes);
+    color: var(--color-texto);
+    border-left: 4px solid #795548;
 }
 
-/* evento--small */
-.evento--small {
-    /* Hacemos la fuente y los espacios más pequeños */
-    font-size: 12px;
-    gap: 2px;
-}
-
-/*  modal */
+/* Modal  */
 .modal {
     position: fixed;
     top: 0;
