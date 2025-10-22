@@ -1,6 +1,5 @@
-import { getListaDeEventos } from "./eventManager";
+import { actividades } from "./actividadesModales";
 
-const listaDeEventos = getListaDeEventos();
 
 //Elementos del modal
 const modal = document.getElementById('modal-actividad');
@@ -12,13 +11,12 @@ const modalDescripcion = document.getElementById('modal-descripcion');
 const botonCerrarModal = document.querySelector('.actividad-modal__cerrar');
 
 //Funciones
-const mostrarModal = (e) =>{
-    modalTitulo.textContent = ` ${e.nombre}`;
-    modalFecha.textContent = ` ${e.dia}`;
-    modalHora.textContent = ` ${e.hora}`;
-    modalUbicacion.textContent = ` ${e.ubicacion}`;
-    modalDescripcion.textContent = ` ${e.descripcion}`;
-
+const mostrarModal = (actividad) => {
+    modalTitulo.textContent = ` ${actividad.nombre}`;
+    modalFecha.textContent = ` ${actividad.dia}`;
+    modalHora.textContent = ` ${actividad.hora}`;
+    modalUbicacion.textContent = ` ${actividad.ubicacion}`;
+    modalDescripcion.textContent = ` ${actividad.descripcion}`;
     //hacemos visible el modal
     modal.classList.add('actividad-modal-visible');
 };
@@ -27,24 +25,19 @@ const cerrarModal = () =>{
     modal.classList.remove('actividad-modal-visible');
 };
 
-export const initModal = () =>{
+export const initModal = () => {
     const cartasDeActividades = document.querySelectorAll('.actividades__contenedor > div');
-    
-    cartasDeActividades.forEach(carta =>{
-        carta.addEventListener('click', () =>{
-            const cartaId = carta.dataset.id; // guardamos el id del div correpondiente
-            const eventoSeleccionado = listaDeEventos.find(evento => evento.id === cartaId );
-
-            if (eventoSeleccionado) {
-                mostrarModal(eventoSeleccionado);
-            };
-            
+    cartasDeActividades.forEach((carta,indice) => {
+        carta.addEventListener('click', () => {
+            const actividadSeleccionada = actividades[indice];
+            if (actividadSeleccionada) {
+                mostrarModal(actividadSeleccionada);
+            }
         });
     });
-
     //añadimos otro evento para cerrar el modal
-    botonCerrarModal.addEventListener('click',cerrarModal);
-    modal.addEventListener('click', (e) => { //para cerrar el modal sin necesidad de pulsar la 'X' de la esquina;
+    botonCerrarModal.addEventListener('click', cerrarModal);
+    modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             cerrarModal();
         }
