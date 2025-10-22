@@ -1,10 +1,15 @@
-import './assets/css/style.css';
-import { initArtistCards } from './modules/tarjetasArtistas';
-import { initModalVideo } from './modules/modalVideo';
-import { initHeaderMenu } from './modules/headerMenu';
-import { initModal } from './modules/modalManager';
+import "./assets/css/style.css";
+import { initArtistCards } from "./modules/tarjetasArtistas";
+import { initModalVideo } from "./modules/modalVideo";
+import { initHeaderMenu } from "./modules/headerMenu";
+import { initModal } from "./modules/modalManager";
+import { renderActividades } from "./modules/renderActividades.js";
 
-initArtistCards();
-initModalVideo();
-initHeaderMenu();
-initModal();
+document.addEventListener("DOMContentLoaded", () => {
+  initArtistCards();
+  initModalVideo();
+  initHeaderMenu();
+
+  renderActividades();
+  initModal();
+});
