@@ -7,6 +7,9 @@
 }
 
 body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
     background-color: var(--color-fondo);
     color: var(--color-texto);
     font-family: var(--fuente-cuerpo);
@@ -87,36 +90,51 @@ header{
 /* Estilos para el contenedor principal de esta pagina */
 main {
     padding: 32px;
+    flex-grow: 1; /*para que se pegue el footer abajo del todo*/
 }
 
 /* Estilo para formulario */
 .admin-form {
-  max-width: 600px;
+  width: 600px;
   margin: 0 auto;
-  padding: 32px;
+  padding: 24px;
   background-color: var(--color-placeholder);
   color: var(--color-texto);
   border-radius: 8px;
+  border: 1px solid var(--color-acento);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px
 }
+
 
 /* Título del formulario */
 h1 {
     text-align: center;
     font-family: var(--fuente-titulos);
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
+}
+
+.form-group--full-width{
+  grid-column: 1 / -1;
+}
+
+.admin-form .form-message,
+.admin-form button[type="submit"] {
+    grid-column: 1 / -1;
 }
 
 .form-group label, .form-group p {
   margin-bottom: 8px;
   font-family: var(--fuente-titulos);
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .admin-form input[type="text"],
@@ -124,16 +142,18 @@ h1 {
 .admin-form select,
 .admin-form textarea {
   width: 100%;
-  padding: 12px;
+  padding: 8px 12px;
   border-radius: 4px;
   border: 1px solid var(--color-bordes);
-  font-size: 16px;
+  font-size: 15px;
   font-family: var(--fuente-cuerpo);
 }
 
 #actividad-descripcion{
   min-width: 100%;
   max-width: 100%;
+  height: 120px;
+  resize: none;
 }
 
 /* Contenedor para los radio buttons */
@@ -152,16 +172,16 @@ hr {
 /* enviar */
 .admin-form button {
   width: 100%;
-  padding: 12px;
+  padding: 10px 12px;
   border: none;
   border-radius: 4px;
   background-color: var(--color-acento);
   color: var(--color-fondo);
   font-family: var(--fuente-titulos);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 16px;
+  margin-top: 0;
   transition: transform 0.3s ease;
 }
 
@@ -184,7 +204,7 @@ hr {
 .form-message {
     display: block;
     padding: 12px;
-    margin: 16px 0;
+    margin: 8px 0;
     border-radius: 4px;
     font-family: var(--fuente-cuerpo);
     font-weight: 500;
@@ -269,4 +289,10 @@ footer{
     text-align: center;
     padding: 12px;
   }
+
+  .admin-form {
+        grid-template-columns: 1fr; 
+    }
+
+
 }

@@ -1,23 +1,31 @@
 import { Evento } from "../models/Evento.js";
 import { Actividad } from "../models/Actividad.js";
 import { Clase } from "../models/Clase.js";
-
 const tipoEvento = () => {
-  const evento = document.getElementById("tipo-evento");
-  const clase = document.getElementById("campos-clase");
-  const actividad = document.getElementById("campos-actividad");
+    const evento = document.getElementById("tipo-evento");
+    const clase = document.getElementById("campos-clase");
+    const actividad = document.getElementById("campos-actividad");
+    const profesSi = document.querySelector('input[name="tiene-profesores"][value="si"]');
+    const profesNo = document.querySelector('input[name="tiene-profesores"][value="no"]');
 
-  evento.addEventListener("change", () => {
-    clase.style.display = "none";
-    clase.style.display = "none";
-    if (evento.value === "clase") {
-      actividad.style.display = "none";
-      clase.style.display = "block";
-    } else if (evento.value === "actividad") {
-      clase.style.display = "none";
-      actividad.style.display = "block";
-    }
-  });
+    evento.addEventListener("change", () => {
+     
+        clase.style.display = "none";
+        actividad.style.display = "none";
+
+        if (evento.value === "clase") {
+            clase.style.display = "block"; 
+            profesSi.checked = true;
+            profesSi.disabled = true;
+
+
+        } else if (evento.value === "actividad") {
+            actividad.style.display = "block";
+            profesNo.checked = true;
+        } else {
+            profesNo.checked = true;
+        }
+    });
 };
 
 tipoEvento();
