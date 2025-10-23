@@ -292,6 +292,7 @@ footer{
 
   .admin-form {
         grid-template-columns: 1fr; 
+        width: 100%;
     }
 
 
