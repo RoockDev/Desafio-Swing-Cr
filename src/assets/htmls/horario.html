@@ -3,36 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./src/assets/css/horario.css" />
+    <link rel="stylesheet" href="../css/horario.css" />
     <title>Horario Eventos</title>
   </head>
   <body>
      <header>
-      <a href="/" class="header__logo">
-        <img src="./src/assets/img/logo.png" alt="logo-swing-cr">
-      </a>
+    <a href="/" class="header__logo">
+        <img src="/src/assets/img/logo.png" alt="logo-swing-cr">
+    </a>
 
-      <!-- boton hamburguesa -->
-       <button class="header__menu-toggle">
-          ☰
-       </button>
-       
-      <nav class="header__nav" id="main-nav">
+    <button class="header__menu-toggle">
+        ☰
+    </button>
+    
+    <nav class="header__nav" id="main-nav">
         <ul>
-          <li><a href="/index.html">Página principal</a></li>
-          <li><a href="/index.html/#horarios">Horarios</a></li>
-          <li><a href="/index.html/#actividades">Actividades</a></li>
-          <li><a href="/horario.html">Mis Eventos</a></li>
+            <li><a href="/">Página principal</a></li>
+
+            <li><a href="/#horarios">Horarios</a></li>
+            <li><a href="/#actividades">Actividades</a></li>
+
+            <li><a href="/src/assets/htmls/horario.html">Mis Eventos</a></li>
         </ul>
-      </nav>
-      
-        <a href="/admin.html" class="header__cta">Registrar Evento</a>
-        
-     
-      
-      
-      
-    </header>
+    </nav>
+    
+    <a href="/src/assets/htmls/admin.html" class="header__cta">Registrar Evento</a>
+</header>
     <main class="horario">
      
       <h1 class="horario__titulo-principal">Horario del Festival</h1>
@@ -127,6 +123,6 @@
         <button class="modal__boton-eliminar" id="modal-boton-eliminar">Eliminar Evento</button>
       </div>
     </div>
-    <script type="module" src="./src/modules/horario.js"></script>
+    <script type="module" src="../../modules/horario.js"></script>
   </body>
 </html>
