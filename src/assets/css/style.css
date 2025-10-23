@@ -1,16 +1,5 @@
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #3a2414;
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
 
-body {
-  padding-top: 90px;
-}
+
 @font-face {
   font-family: "Oswald";
   src: url("../fonts/Oswald-Bold.ttf") format("truetype");
@@ -52,9 +41,17 @@ body {
   background-color: var(--color-fondo);
   color: var(--color-texto);
   font-family: var(--fuente-cuerpo);
+   padding-top: 90px;
 }
 
 header {
+      position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #3a2414;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   display: flex;
   justify-content: space-between;
   align-items: center;
