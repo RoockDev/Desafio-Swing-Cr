@@ -40,7 +40,8 @@
       <!-- viernes -->
       <section class="dia-horario" id="viernes">
         <h2 class="horario__titulo-dia">Viernes</h2>
-        <table class="tabla-horario">
+        <div class="tabla-contenedor">
+          <table class="tabla-horario">
           <thead>
             <tr>
               <th class="columna-hora">Hora</th>
@@ -56,12 +57,16 @@
             <!-- js -->
           </tbody>
         </table>
+
+        </div>
+        
       </section>
 
       <!-- sabado -->
       <section class="dia-horario" id="sabado">
         <h2 class="horario__titulo-dia">Sábado</h2>
-        <table class="tabla-horario">
+        <div class="tabla-contenedor">
+           <table class="tabla-horario">
           <thead>
             <tr>
               <th class="columna-hora">Hora</th>
@@ -77,12 +82,15 @@
             <!-- js -->
           </tbody>
         </table>
+        </div>
+       
       </section>
 
       <!-- domingo -->
       <section class="dia-horario" id="domingo">
         <h2 class="horario__titulo-dia">Domingo</h2>
-        <table class="tabla-horario">
+        <div class="tabla-contenedor">
+          <table class="tabla-horario">
           <thead>
             <tr>
               <th class="columna-hora">Hora</th>
@@ -98,6 +106,8 @@
             <!-- js -->
           </tbody>
         </table>
+        </div>
+        
       </section>
     </main>
     
@@ -114,6 +124,7 @@
         <p><strong>Ubicación:</strong> <span id="modal-ubicacion"></span></p>
         
         <div id="modal-detalles-extra"></div> 
+        <button class="modal__boton-eliminar" id="modal-boton-eliminar">Eliminar Evento</button>
       </div>
     </div>
     <script type="module" src="./src/modules/horario.js"></script>
