@@ -1,31 +1,36 @@
 import { Evento } from "../models/Evento.js";
 import { Actividad } from "../models/Actividad.js";
 import { Clase } from "../models/Clase.js";
+import { initHeaderMenu } from "./headerMenu.js";
+//primero cargamos los estilos del menu hamburguesa
+initHeaderMenu();
+
 const tipoEvento = () => {
-    const evento = document.getElementById("tipo-evento");
-    const clase = document.getElementById("campos-clase");
-    const actividad = document.getElementById("campos-actividad");
-    const profesSi = document.querySelector('input[name="tiene-profesores"][value="si"]');
-    const profesNo = document.querySelector('input[name="tiene-profesores"][value="no"]');
+  const evento = document.getElementById("tipo-evento");
+  const clase = document.getElementById("campos-clase");
+  const actividad = document.getElementById("campos-actividad");
+  const profesSi = document.querySelector(
+    'input[name="tiene-profesores"][value="si"]'
+  );
+  const profesNo = document.querySelector(
+    'input[name="tiene-profesores"][value="no"]'
+  );
 
-    evento.addEventListener("change", () => {
-     
-        clase.style.display = "none";
-        actividad.style.display = "none";
+  evento.addEventListener("change", () => {
+    clase.style.display = "none";
+    actividad.style.display = "none";
 
-        if (evento.value === "clase") {
-            clase.style.display = "block"; 
-            profesSi.checked = true;
-            profesSi.disabled = true;
-
-
-        } else if (evento.value === "actividad") {
-            actividad.style.display = "block";
-            profesNo.checked = true;
-        } else {
-            profesNo.checked = true;
-        }
-    });
+    if (evento.value === "clase") {
+      clase.style.display = "block";
+      profesSi.checked = true;
+      profesSi.disabled = true;
+    } else if (evento.value === "actividad") {
+      actividad.style.display = "block";
+      profesNo.checked = true;
+    } else {
+      profesNo.checked = true;
+    }
+  });
 };
 
 tipoEvento();
@@ -39,17 +44,18 @@ const poblarSelectHoras = () => {
   const actualizarHorasDisponibles = () => {
     const dia = selectDia.value;
     const ubicacion = selectUbicacion.value;
-    
+
     // Limpiar opciones
-    selectHora.innerHTML = '<option value="">-- Selecciona una hora --</option>';
-    
+    selectHora.innerHTML =
+      '<option value="">-- Selecciona una hora --</option>';
+
     if (!dia) return;
 
     // Rangos de horas por día
     const rangosPorDia = {
       viernes: { min: 20, max: 23 },
       sabado: { min: 0, max: 23 },
-      domingo: { min: 0, max: 20 }
+      domingo: { min: 0, max: 20 },
     };
 
     const rango = rangosPorDia[dia];
@@ -60,28 +66,33 @@ const poblarSelectHoras = () => {
 
     // Generar opciones de horas
     for (let hora = rango.min; hora <= rango.max; hora++) {
-      const horaFormateada = `${String(hora).padStart(2, '0')}:00`;
-      
-      // Verificar si está ocupada 
+      const horaFormateada = `${String(hora).padStart(2, "0")}:00`;
+
+      // Verificar si está ocupada
       let ocupada = false;
       if (ubicacion) {
-        ocupada = eventosGuardados.some(ev => 
-          ev.dia === dia && 
-          ev.ubicacion === ubicacion && 
-          ev.horaInicio === horaFormateada
+        ocupada = eventosGuardados.some(
+          (ev) =>
+            ev.dia === dia &&
+            ev.ubicacion === ubicacion &&
+            ev.horaInicio === horaFormateada
         );
       }
 
-      const option = document.createElement('option');
+      const option = document.createElement("option");
       option.value = horaFormateada;
-      option.textContent = horaFormateada + (ocupada ? ' (ocupada)' : '');
+      if (ocupada) {
+        option.textContent = horaFormateada + " (ocupada)";
+      } else {
+        option.textContent = horaFormateada;
+      }
       option.disabled = ocupada;
       selectHora.appendChild(option);
     }
   };
 
-  selectDia.addEventListener('change', actualizarHorasDisponibles);
-  selectUbicacion.addEventListener('change', actualizarHorasDisponibles);
+  selectDia.addEventListener("change", actualizarHorasDisponibles);
+  selectUbicacion.addEventListener("change", actualizarHorasDisponibles);
 };
 
 poblarSelectHoras();
@@ -120,33 +131,6 @@ const handleFormSubmit = (e) => {
     'input[name="tiene-profesores"]:checked'
   ).value;
   const mensajeFormulario = document.getElementById("form-message");
-
-  // Validar que la hora esté en punto 
-  const minutosHora = parseInt(horaInicio.split(':')[1]);
-  if (minutosHora !== 0) {
-    mensajeFormulario.classList.add("form-message--error");
-    mensajeFormulario.textContent = "La hora de inicio debe ser en punto.";
-    return;
-  }
-
-  // Calcular horaFin automáticamente (+1 hora)
-  const horaInicioNum = parseInt(horaInicio.split(':')[0], 10);
-  const horaFinNum = (horaInicioNum + 1) % 24;
-  const horaFinStr = `${String(horaFinNum).padStart(2, '0')}:00`;
-
-  // si ya existe
-  const conflicto = listaEventos.find(evento => 
-    evento.dia === dia && 
-    evento.ubicacion === ubicacion && 
-    evento.horaInicio === horaInicio
-  );
-
-  if (conflicto) {
-    mensajeFormulario.classList.add("form-message--error");
-    mensajeFormulario.textContent = "Ya existe un evento en ese horario y ubicación.";
-    return;
-  }
-
   const datosEvento = {
     dia: dia,
     horaInicio: horaInicio,
@@ -173,11 +157,23 @@ const handleFormSubmit = (e) => {
     nuevoEvento = new Clase(datosEvento);
   }
 
+  listaEventos.push(nuevoEvento);
+  localStorage.setItem("eventos", JSON.stringify(listaEventos));
+
   mensajeFormulario.classList.add("form-message--success");
   mensajeFormulario.textContent = "Evento registrado correctamente";
 
-  listaEventos.push(nuevoEvento);
-  localStorage.setItem("eventos", JSON.stringify(listaEventos));
+  document.querySelector('.admin-form button[type="submit"]').disabled = true;
+
+  setTimeout(() => {
+    adminForm.reset(); // Limpia todos los campos del formulario
+    location.reload(); // Recarga la página para actualizar el select de horas
+  }, 2000); // 2 segundos
+
+  // Calcular horaFin automáticamente (+1 hora)
+  const horaInicioNum = parseInt(horaInicio.split(":")[0], 10);
+  const horaFinNum = (horaInicioNum + 1) % 24;
+  const horaFinStr = `${String(horaFinNum).padStart(2, "0")}:00`;
 };
 
 adminForm.addEventListener("submit", handleFormSubmit);
