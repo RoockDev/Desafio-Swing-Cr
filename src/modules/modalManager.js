@@ -1,5 +1,5 @@
 import { actividades } from "./actividadesModales";
-
+/**lógica para mostrar las actividades en los modales de la página principal */
 
 //Elementos del modal
 const modal = document.getElementById('modal-actividad');

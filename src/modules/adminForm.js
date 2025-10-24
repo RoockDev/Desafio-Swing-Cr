@@ -6,6 +6,7 @@ import { initHeaderMenu } from "./headerMenu.js";
 //primero cargamos los estilos del menu hamburguesa
 initHeaderMenu();
 
+/**capturamos el tipo de evento para mostrar unos campos u otros en el formulario */
 const tipoEvento = () => {
   const evento = document.getElementById("tipo-evento");
   const clase = document.getElementById("campos-clase");
@@ -109,7 +110,7 @@ const limpiarMensajes = () => {
 };
 
 const adminForm = document.querySelector(".admin-form");
-
+/**lógica para cuando enviemos los datos en el formulario  */
 const handleFormSubmit = (e) => {
   //evitamos que la pagina se recargue
   e.preventDefault();

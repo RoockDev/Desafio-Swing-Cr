@@ -1,5 +1,5 @@
 
-
+/**Array de las actividades modales para la simulacion de muestra  en la pagina principal */
 export const actividades = [
   {
     nombre: "Lindy-Hop(Anders & Hyunjung)",

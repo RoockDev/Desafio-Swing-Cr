@@ -30,24 +30,27 @@
   --fuente-titulos: "Oswald", sans-serif;
   --fuente-cuerpo: "Roboto", sans-serif;
 }
-
+/*Estilos generales*/
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/*Estilos para el body*/
 body {
   background-color: var(--color-fondo);
   color: var(--color-texto);
   font-family: var(--fuente-cuerpo);
   padding-top: 0;
 }
+/*Estilos para la página principal*/
 main {
   min-height: 80vh;
   display: block;
 }
 
+/*Estilos para el header*/
 header {
       position: sticky;
   top: 0;
@@ -97,6 +100,7 @@ header {
   transform: scaleX(1);
 }
 
+/*EStilos para el botón de registar evento (call_to_action)*/
 .header__cta {
   background-color: var(--color-fondo);
   padding: 8px 16px;

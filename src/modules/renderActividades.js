@@ -1,5 +1,6 @@
 import { actividades } from './actividadesModales.js';
 
+/**lógica para mostrar y añadir las tarjetas de las activiades en la página principal */
 export function renderActividades() {
   const contenedor = document.querySelector('.actividades__contenedor');
   if (!contenedor) return;
