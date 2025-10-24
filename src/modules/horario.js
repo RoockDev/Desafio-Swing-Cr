@@ -11,7 +11,7 @@ let eventoActualEnModal = null; //aqui el evento del modal para eliminar la acti
 const horasDeDias = {
   viernes: { min: 20, max: 23 },
   sabado: { min: 0, max: 23 },
-  domingo: { min: 0, max: 20 }
+  domingo: { min: 0, max: 19 }
 };
 
 // Array con los nombres de todas las salas del festival

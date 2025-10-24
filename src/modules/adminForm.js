@@ -56,7 +56,7 @@ const poblarSelectHoras = () => {
     const rangosPorDia = {
       viernes: { min: 20, max: 23 },
       sabado: { min: 0, max: 23 },
-      domingo: { min: 0, max: 20 },
+      domingo: { min: 0, max: 19 },
     };
 
     const rango = rangosPorDia[dia];
