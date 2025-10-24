@@ -2,6 +2,7 @@ import { Evento } from "../models/Evento.js";
 import { Actividad } from "../models/Actividad.js";
 import { Clase } from "../models/Clase.js";
 import { initHeaderMenu } from "./headerMenu.js";
+
 //primero cargamos los estilos del menu hamburguesa
 initHeaderMenu();
 
@@ -168,7 +169,7 @@ const handleFormSubmit = (e) => {
   setTimeout(() => {
     adminForm.reset(); // Limpia todos los campos del formulario
     location.reload(); // Recarga la página para actualizar el select de horas
-  }, 2000); // 2 segundos
+  }, 1500); // 1.5 segundos
 
   // Calcular horaFin automáticamente (+1 hora)
   const horaInicioNum = parseInt(horaInicio.split(":")[0], 10);
