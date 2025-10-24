@@ -1,3 +1,9 @@
+import { initHeaderMenu } from "./headerMenu.js";
+
+  initHeaderMenu();
+
+let eventoActualEnModal = null; //aqui el evento del modal para eliminar la actividad
+
 // Aquí defino las horas de inicio y fin de cada día del festival
 // El viernes empieza a las 20:00 y termina a las 23:00
 // El sábado va de 00:00 a 23:00 (todo el día)
@@ -189,7 +195,6 @@ const configurarDragAndDrop = (tarjeta) => {
 const configurarDropEnCeldas = () => {
   const todasLasCeldas = document.querySelectorAll('.celda-sala');
   
-  
   for (let i = 0; i < todasLasCeldas.length; i++) {
     const celda = todasLasCeldas[i];
     
@@ -357,6 +362,7 @@ const botonCerrar = document.getElementById('modal-close-btn');
 
 // 
 const abrirModal = (evento) => {
+    eventoActualEnModal = evento;
     // Si el modal no existe en el HTML me voy
     if (!modal) return;
     
@@ -427,6 +433,36 @@ if (modal) {
         }
     });
 }
+
+const botonEliminar = document.getElementById('modal-boton-eliminar');
+const eliminarEvento = () => {
+  if (!eventoActualEnModal) return;
+  const confirmar = confirm("¿Seguro que quieres eliminar este evento?");
+  if (confirmar) {
+    let eventosGuardados = JSON.parse(localStorage.getItem("eventos"));
+    let nuevaListaEventos = [];
+
+        for (const eventoExistente of eventosGuardados) {
+            
+            const esElEventoAEliminar = 
+                eventoExistente.horaInicio === eventoActualEnModal.horaInicio &&
+                eventoExistente.dia === eventoActualEnModal.dia &&
+                eventoExistente.ubicacion === eventoActualEnModal.ubicacion;
+
+            if (!esElEventoAEliminar) {
+                nuevaListaEventos.push(eventoExistente);
+            }
+            
+        };
+      localStorage.setItem("eventos", JSON.stringify(nuevaListaEventos));
+      cerrarModal();
+      location.reload();
+    
+  }
+
+};
+
+botonEliminar.addEventListener('click',eliminarEvento);
 
 
 pintarEventosEnTablon();
