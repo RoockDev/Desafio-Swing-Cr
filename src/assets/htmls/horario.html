@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/horario.css" />
+    <link rel="icon" type="image/png" href="../img/logo.png">
+    <title>Horario Eventos</title>
+  </head>
+  <body>
+     <header>
+    <a href="/" class="header__logo">
+        <img src="/src/assets/img/logo.png" alt="logo-swing-cr">
+    </a>
+
+    <button class="header__menu-toggle">
+        ☰
+    </button>
+    
+    <nav class="header__nav" id="main-nav">
+        <ul>
+            <li><a href="/">Página principal</a></li>
+
+            <li><a href="/#horarios">Horarios</a></li>
+            <li><a href="/#actividades">Actividades</a></li>
+
+            <li><a href="/src/assets/htmls/horario.html">Mis Eventos</a></li>
+        </ul>
+    </nav>
+    
+    <a href="/src/assets/htmls/admin.html" class="header__cta">Registrar Evento</a>
+</header>
+    <main class="horario">
+     
+      <h1 class="horario__titulo-principal">Horario del Festival</h1>
+      
+      <!-- viernes -->
+      <section class="dia-horario" id="viernes">
+        <h2 class="horario__titulo-dia">Viernes</h2>
+        <div class="tabla-contenedor">
+          <table class="tabla-horario">
+          <thead>
+            <tr>
+              <th class="columna-hora">Hora</th>
+              <th>Sala Be Hopper</th>
+              <th>Sala New Orleans</th>
+              <th>Sala Savoy</th>
+              <th>Antiguo Casino</th>
+              <th>Parque Gasset</th>
+              <th>Prado</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-viernes">
+            <!-- js -->
+          </tbody>
+        </table>
+
+        </div>
+        
+      </section>
+
+      <!-- sabado -->
+      <section class="dia-horario" id="sabado">
+        <h2 class="horario__titulo-dia">Sábado</h2>
+        <div class="tabla-contenedor">
+           <table class="tabla-horario">
+          <thead>
+            <tr>
+              <th class="columna-hora">Hora</th>
+              <th>Sala Be Hopper</th>
+              <th>Sala New Orleans</th>
+              <th>Sala Savoy</th>
+              <th>Antiguo Casino</th>
+              <th>Parque Gasset</th>
+              <th>Prado</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-sabado">
+            <!-- js -->
+          </tbody>
+        </table>
+        </div>
+       
+      </section>
+
+      <!-- domingo -->
+      <section class="dia-horario" id="domingo">
+        <h2 class="horario__titulo-dia">Domingo</h2>
+        <div class="tabla-contenedor">
+          <table class="tabla-horario">
+          <thead>
+            <tr>
+              <th class="columna-hora">Hora</th>
+              <th>Sala Be Hopper</th>
+              <th>Sala New Orleans</th>
+              <th>Sala Savoy</th>
+              <th>Antiguo Casino</th>
+              <th>Parque Gasset</th>
+              <th>Prado</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-domingo">
+            <!-- js -->
+          </tbody>
+        </table>
+        </div>
+        
+      </section>
+    </main>
+    
+      <footer>
+        <p>&copy; 2026 Swing Ciudad Real. Todos los derechos reservados.</p>
+      </footer>
+    
+    <!-- Modal -->
+    <div class="modal" id="evento-modal">
+      <div class="modal__contenido">
+        <button class="modal__boton-cerrar" id="modal-close-btn">&times;</button>
+        <h3 class="modal__titulo" id="modal-titulo"></h3>
+        <p><strong>Horario:</strong> <span id="modal-horario"></span></p>
+        <p><strong>Ubicación:</strong> <span id="modal-ubicacion"></span></p>
+        
+        <div id="modal-detalles-extra"></div> 
+        <button class="modal__boton-eliminar" id="modal-boton-eliminar">Eliminar Evento</button>
+      </div>
+    </div>
+    <script type="module" src="../../modules/horario.js"></script>
+  </body>
+</html>

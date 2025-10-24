@@ -1,0 +1,302 @@
+@import './style.css';
+
+*{
+    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/*Body*/
+
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-cuerpo);
+}
+
+/*Estilos para header*/
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 32px;
+    background-color: var(--color-acento);
+    border-bottom: 1px solid var(--color-bordes)
+}
+
+/*Estilos para la lista del menu*/
+.header__nav ul{
+    display: flex;
+    list-style: none;
+    gap: 24px;
+}
+
+/*Estilos para los enlaces del menu*/
+.header__nav a {
+    color: var(--color-fondo);
+    text-decoration: none;
+    font-family: var(--fuente-titulos);
+    font-size: 18p;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.header__nav a::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-fondo);
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+.header__nav a:hover::after{
+    transform: scaleX(1);
+}
+
+
+/*Estilos para el boton registrar evento (call_to_action)*/
+.header__cta{
+    background-color: var(--color-fondo) ;
+    padding: 8px 16px;
+    border-radius: 4px;
+
+    color: var(--color-texto);
+    text-decoration: none;
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+
+    transition: transform 0.3s ease;
+}
+
+.header__cta:hover{
+    transform: scale(1.05);
+    
+}
+
+.header__logo img{
+    height: 64px;
+    border-radius: 20%;
+}
+
+.header__menu-toggle{
+    display: none;
+}
+
+
+/* Estilos para el contenedor principal de esta pagina */
+main {
+    padding: 32px;
+    flex-grow: 1; /*para que se pegue el footer abajo del todo*/
+}
+
+/* Estilo para formulario */
+.admin-form {
+  width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: var(--color-placeholder);
+  color: var(--color-texto);
+  border-radius: 8px;
+  border: 1px solid var(--color-acento);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px
+}
+
+
+/* Título del formulario */
+h1 {
+    text-align: center;
+    font-family: var(--fuente-titulos);
+    margin-bottom: 20px;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.form-group--full-width{
+  grid-column: 1 / -1;
+}
+
+.admin-form .form-message,
+.admin-form button[type="submit"] {
+    grid-column: 1 / -1;
+}
+
+.form-group label, .form-group p {
+  margin-bottom: 8px;
+  font-family: var(--fuente-titulos);
+  font-size: 16px;
+}
+
+.admin-form input[type="text"],
+.admin-form input[type="time"],
+.admin-form select,
+.admin-form textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--color-bordes);
+  font-size: 15px;
+  font-family: var(--fuente-cuerpo);
+}
+
+#actividad-descripcion{
+  min-width: 100%;
+  max-width: 100%;
+  height: 120px;
+  resize: none;
+}
+
+/* Contenedor para los radio buttons */
+.radio-group {
+    display: flex;
+    gap: 24px;
+}
+
+/* Separador dia y hora del tipo de evento */
+hr {
+    border: none;
+    border-top: 1px solid var(--color-bordes);
+    margin: 32px 0;
+}
+
+/* enviar */
+.admin-form button {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--color-acento);
+  color: var(--color-fondo);
+  font-family: var(--fuente-titulos);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 0;
+  transition: transform 0.3s ease;
+}
+
+.admin-form button:hover {
+  transform: scale(1.02);
+}
+
+/* --- Logica dependiendo si elige clase o actividad --- */
+/* Ocultamos los campos condicionales por defecto */
+.campos-condicionales-clase {
+    display: none;
+}
+
+.campos-condicionales-actividad{
+    display: none;
+}
+
+
+/* Estilos para mensajes del formulario */
+.form-message {
+    display: block;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 4px;
+    font-family: var(--fuente-cuerpo);
+    font-weight: 500;
+    text-align: center;
+}
+
+.form-message--error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #e57373;
+}
+
+.form-message--success {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+    border: 1px solid #81c784;
+}
+
+
+/*Estilizamos footer*/
+footer{
+    text-align: center;
+    background-color: var(--color-acento);
+    color: var(--color-fondo);
+    padding: 5px;
+}
+
+
+/*Media Query para otros dispositivos*/
+@media (max-width: 768px){
+     header {
+    padding: 12px 16px;
+    flex-wrap: wrap; /* Para que los elementos puedan saltar a la siguiente línea */
+  }
+
+  /*Logo mas pequeño*/
+  .header__logo img{
+    height: 48px;
+  }
+
+  /*boton hamburguesa*/
+ .header__menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--color-fondo);
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: auto; /* Lo empuja a la derecha */
+  }
+
+  /* menu oculto por el movil*/
+  .header__nav{
+    display: none;
+    width: 100%;
+    margin-top: 16px;
+    padding: 16px 0;
+    background-color: var(--color-acento);
+    border-top: 1px solid var(--color-bordes);
+  }
+
+  .header__nav.active {
+    display: block; /* Se muestra cuando se hace clic en el boton hamburguesa */
+  }
+  
+   .header__nav ul {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+  
+  .header__nav a {
+    font-size: 16px;
+    padding: 8px 0;
+  }
+
+
+  /*CTA en el movil*/
+  .header__cta{
+    margin-top: 16px;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .admin-form {
+        grid-template-columns: 1fr; 
+        width: 100%;
+    }
+
+
+}

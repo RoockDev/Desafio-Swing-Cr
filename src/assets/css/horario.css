@@ -1,0 +1,377 @@
+@import './style.css';
+
+*{
+    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/*Estilos para el body*/
+body{
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-cuerpo);
+}
+/*Estilos para el header*/
+header{
+    position: sticky;
+    top: 0;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 32px;
+    background-color: var(--color-acento);
+    border-bottom: 1px solid var(--color-bordes);
+}
+
+/*Estilos para la lista del menu*/
+.header__nav ul{
+    display: flex;
+    list-style: none;
+    gap: 24px;
+}
+
+/*Estilos para los enlaces del menu*/
+.header__nav a {
+    color: var(--color-fondo);
+    text-decoration: none;
+    font-family: var(--fuente-titulos);
+    font-size: 18p;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.header__nav a::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-fondo);
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+.header__nav a:hover::after{
+    transform: scaleX(1);
+}
+
+
+
+.header__cta{
+    background-color: var(--color-fondo) ;
+    padding: 8px 16px;
+    border-radius: 4px;
+
+    color: var(--color-texto);
+    text-decoration: none;
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+
+    transition: transform 0.3s ease;
+}
+
+.header__cta:hover{
+    transform: scale(1.05);
+    
+}
+
+.header__logo img{
+    height: 64px;
+    border-radius: 20%;
+}
+
+.header__menu-toggle{
+    display: none;
+}
+/*Estilos para el tablón*/
+
+.horario {
+    width: 95%;
+    margin: 32px auto;
+    color: var(--color-texto);
+}
+
+.horario__titulo-principal,
+.horario__titulo-dia {
+    font-family: var(--fuente-titulos);
+    color: var(--color-texto);
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.tabla-contenedor {
+    overflow-x: auto; /*esto es para poner una barrita de scroll si el contenido es mas ancho que el tamaño de tabla*/
+    border: 1px solid var(--color-bordes);
+    border-radius: 8px;
+    margin-bottom: 48px; 
+}
+.tabla-horario {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
+    font-family: var(--fuente-cuerpo);
+}
+
+.tabla-horario thead {
+    background-color: var(--color-acento);
+    color: var(--color-fondo);
+}
+
+.tabla-horario th {
+    padding: 12px 8px;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid var(--color-bordes);
+}
+
+.tabla-horario th.columna-hora {
+    width: 80px;
+}
+
+.tabla-horario td {
+    border: 1px solid var(--color-bordes);
+    padding: 4px;
+    text-align: center;
+    vertical-align: middle;
+    height: 60px;
+    position: relative;
+}
+
+/*Estilos para las celdas*/
+.celda-hora {
+    background-color: var(--color_placeholder);
+    color: var(--color-bordes);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.celda-sala {
+    background-color: var(--color-fondo);
+    min-width: 120px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.celda-sala:hover {
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+/*  drag hover */
+.celda-hover-valido {
+    background-color: rgba(76, 175, 80, 0.2) !important;
+    outline: 2px dashed #4caf50;
+}
+
+.celda-hover-invalido {
+    background-color: rgba(244, 67, 54, 0.2) !important;
+    outline: 2px dashed #f44336;
+}
+
+.celda-hover-prohibido {
+    background-color: rgba(255, 107, 107, 0.3) !important;
+    outline: 2px dashed #ff6b6b;
+    cursor: not-allowed;
+}
+
+/*Estilos para las tarjetas de los eventos*/
+.evento {
+    border-radius: 4px;
+    padding: 6px;
+    font-family: var(--fuente-cuerpo);
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 2px;
+    font-size: 12px;
+    cursor: move;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.evento:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.evento--clase {
+    background-color: var(--color-acento);
+    color: var(--color-fondo);
+    border-left: 4px solid #c79800;
+}
+
+.evento--actividad {
+    background-color: var(--color-bordes);
+    color: var(--color-texto);
+    border-left: 4px solid #795548;
+}
+
+/* Estilos para el Modal  */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    /* Oculto por defecto */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* modal--visible */
+.modal--visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal__contenido {
+    background-color: var(--color_placeholder); 
+    color: var(--color-fondo); 
+    padding: 32px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px; 
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border-top: 5px solid var(--color-acento); 
+}
+
+.modal__boton-cerrar {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    color: var(--color-fondo);
+    transition: transform 0.2s ease;
+}
+
+.modal__boton-cerrar:hover {
+    transform: scale(1.2);
+}
+
+.modal__titulo {
+    font-family: var(--fuente-titulos);
+    color: var(--color-acento);
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 24px;
+}
+
+.modal__contenido p {
+    font-family: var(--fuente-cuerpo);
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+/* Estilo para el nuevo boton de eliminar en el modal */
+.modal__boton-eliminar {
+    width: 100%;
+    padding: 10px;
+    margin-top: 24px; 
+    border: none;
+    border-radius: 4px;
+    background-color: #e53935; 
+    color: white;
+    font-family: var(--fuente-titulos);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal__boton-eliminar:hover {
+    background-color: #c62828; 
+}
+
+
+
+
+/*Media Query para otros dispositivos*/
+@media (max-width: 768px){
+
+     header {
+    padding: 12px 16px;
+    flex-wrap: wrap; /* Para que los elementos puedan saltar a la siguiente línea */
+  }
+
+  /*Logo mas pequeño*/
+  .header__logo img {
+    height: 48px;
+  }
+
+  /*boton hamburguesa*/
+  .header__menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--color-fondo);
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: auto; /* Lo empuja a la derecha */
+  }
+
+  /* menu oculto por el movil*/
+  .header__nav {
+    display: none;
+    width: 100%;
+    margin-top: 16px;
+    padding: 16px 0;
+    background-color: var(--color-acento);
+    border-top: 1px solid var(--color-bordes);
+  }
+
+  .header__nav.active {
+    display: block; /* Se muestra cuando se hace clic en el boton hamburguesa */
+  }
+
+  .header__nav ul {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .header__nav a {
+    font-size: 16px;
+    padding: 8px 0;
+  }
+
+  /*CTA en el movil*/
+  .header__cta {
+    display: none;
+    margin-top: 16px;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .header__nav.active + .header__cta {
+    display: block;
+  }
+
+ 
+ 
+
+
+}
+

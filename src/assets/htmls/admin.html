@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="icon" type="image/png" href="../img/logo.png">
+    <title>Registrar Eventos</title>
+</head>
+<body>
+    <header>
+    <a href="/" class="header__logo">
+        <img src="/src/assets/img/logo.png" alt="logo-swing-cr">
+    </a>
+
+    <button class="header__menu-toggle">
+        ☰
+    </button>
+    
+    <nav class="header__nav" id="main-nav">
+        <ul>
+            <li><a href="/">Página principal</a></li>
+
+            <li><a href="/#horarios">Horarios</a></li>
+            <li><a href="/#actividades">Actividades</a></li>
+
+            <li><a href="/src/assets/htmls/horario.html">Mis Eventos</a></li>
+        </ul>
+    </nav>
+    
+    <a href="/src/assets/htmls/admin.html" class="header__cta">Registrar Evento</a>
+</header>
+    <main>
+        <h1>Registrar Nuevo Evento</h1>
+        <form class="admin-form">
+            <div class="form-group">
+                <label for="evento-dia">Dia del Evento:</label>
+                <select name="dia" id="evento-dia" required>
+                    <option value="">--Elige un dia--</option>
+                    <option value="viernes">Viernes</option>
+                    <option value="sabado">Sabado</option>
+                    <option value="domingo">Domingo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="evento-hora">Hora de Inicio:</label>
+                <select id="evento-hora" name="hora" required>
+                    <option value="">-- Selecciona una hora --</option>
+                </select>
+            </div>
+            <div class="form-group form-group--full-width">
+                <label for="evento-ubicacion">Ubicación:</label>
+                <select id="evento-ubicacion" name="ubicacion" required>
+                    <option value="">-- Elige una ubicación --</option>
+                    <option value="Sala Be Hopper">Sala Be Hopper</option>
+                    <option value="Sala New Orleans">Sala New Orleans</option>
+                    <option value="Sala Savoy">Sala Savoy</option>
+                    <option value="Antiguo Casino">Antiguo Casino</option>
+                    <option value="Parque de Gasset">Parque de Gasset</option>
+                    <option value="Prado">Prado</option>
+                </select>
+            </div>
+            
+            <hr class="form-group--full-width"> 
+            <div class="form-group form-group--full-width">
+                <label for="tipo-evento">Tipo de Evento a Registrar:</label>
+                <select id="tipo-evento" name="tipo-evento" required>
+                    <option value="">-- Elige un tipo --</option>
+                    <option value="clase">Clase</option>
+                    <option value="actividad">Actividad</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <p>¿Hay profesores implicados?</p>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="tiene-profesores" value="si"> Sí
+                    </label>
+                    <label>
+                        <input type="radio" name="tiene-profesores" value="no" checked> No
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="clase-estilo">Estilo:</label>
+                <select id="clase-estilo" name="estilo">
+                    <option value="Lindy Hop">Lindy Hop</option>
+                    <option value="Shag">Shag</option>
+                    <option value="Solo Jazz">Solo Jazz</option>
+                </select>
+            </div>
+
+            <div id="campos-clase" class="campos-condicionales-clase form-group--full-width">
+                <div class="form-group">
+                    <label for="clase-nivel">Nivel:</label>
+                    <select id="clase-nivel" name="nivel">
+                        <option value="Básico">Básico</option>
+                        <option value="Intermedio">Intermedio</option>
+                        <option value="Avanzado">Avanzado</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="campos-actividad" class="campos-condicionales-actividad form-group--full-width">
+                <div class="form-group">
+                    <p>¿Toca una banda en directo?</p>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="tiene-banda" value="si"> Sí
+                        </label>
+                        <label>
+                            <input type="radio" name="tiene-banda" value="no" checked> No
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="actividad-tipo">Tipo de Actividad:</label>
+                    <select id="actividad-tipo" name="tipo-actividad">
+                        <option value="Taster">Taster</option>
+                        <option value="Social">Social</option>
+                        <option value="Concierto">Concierto</option>
+                        <option value="Mix & Match">Mix & Match</option>
+                    </select>
+                </div>
+                
+                <div class="form-group form-group--full-width">
+                    <label for="actividad-descripcion">Descripción:</label>
+                    <textarea id="actividad-descripcion" name="descripcion" rows="4"></textarea>
+                </div>
+            </div>
+
+            
+            
+            <span class="form-message" id="form-message"></span>
+            <button type="submit">Registrar evento</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2026 Swing Ciudad Real. Todos los derechos reservados.</p>
+      </footer>
+      <script type="module" src="../../modules/adminForm.js"></script>
+</body>
+</html>

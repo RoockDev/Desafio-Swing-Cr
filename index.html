@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/assets/css/animate.min.css">
+    <link rel="stylesheet" href="./src/assets/css/style.css">
+    <link rel="icon" type="image/png" href="./src/assets/img/logo.png">
+    <title>Swing CR</title>
+  </head>
+  <body>
+    <header>
+    <a href="/" class="header__logo">
+        <img src="/src/assets/img/logo.png" alt="logo-swing-cr">
+    </a>
+
+    <button class="header__menu-toggle">
+        ☰
+    </button>
+    
+    <nav class="header__nav" id="main-nav">
+        <ul>
+            <li><a href="/">Página principal</a></li>
+
+            <li><a href="/#horarios">Horarios</a></li>
+            <li><a href="/#actividades">Actividades</a></li>
+
+            <li><a href="/src/assets/htmls/horario.html">Mis Eventos</a></li>
+        </ul>
+    </nav>
+    
+    <a href="/src/assets/htmls/admin.html" class="header__cta">Registrar Evento</a>
+</header>
+    <main>
+      <section class="hero">
+        <h1 class="animate__animated animate__backInDown">Swing Ciudad Real 2026</h1>
+        <h3  class="animate__animated animate__backInDown">Sección de organizador</h3>
+        <p>
+          Sumérgete en un fin de semana vibrante al ritmo del mejor swing.
+          Disfruta de música en directo, aprende de profesores internacionales y
+          comparte la energía de una comunidad única. ¡La fiesta del año te
+          espera en Ciudad Real!
+        </p>
+        <button>Vive el Swing</button>
+      </section>
+
+      <section class="artistas-principales">
+        <h2>Artistas principales</h2>
+        <div class="artistas-principales__contenedor">
+          <figure class="animate__animated animate__fadeInLeftBig animate__delay-3s" >
+            <img
+              src="./src/assets/img/hyunjung-Anders.jpeg"
+              alt="Hyunjung y Anders bailando swing"
+            />
+            <video src="./src/assets/videos/Hyunjung&Anders.mp4 " loop muted></video>
+            <figcaption>Hyunjung & Anders</figcaption>
+          </figure>
+
+          <figure  class="animate__animated animate__fadeInLeftBig animate__delay-2s">
+            <img
+              src="./src/assets/img/Marta-Pedro.jpeg"
+              alt="Marta y Pedor bailando swing"
+            />
+            <video src="./src/assets/videos/Marta&Pedro.mp4" loop muted></video>
+            <figcaption>Marta & Pedro</figcaption>
+          </figure>
+
+          <figure  class="animate__animated animate__fadeInLeftBig animate__delay-1s">
+            <img
+              src="./src/assets/img/Swinghappy.jpeg"
+              alt="Bailarin de swing posando"
+            />
+            <video src="./src/assets/videos/Swinghappy.mp4" loop muted></video>
+            <figcaption>Swinghappy</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="horarios" id="horarios">
+        <h2> Prototipo Horarios</h2>
+        <div class="horarios__contenedor">
+            <figure>
+          <img
+            src="./src/assets/img/horarios-de-clases.png"
+            alt="Horarios de las clases"
+          />
+        </figure>
+
+        <figure>
+          <img
+            src="./src/assets/img/horarios-party-pass.png"
+            alt="Horario de fiestas y eventos sociales"
+          />
+        </figure>
+        </div>
+        
+      </section>
+
+      <section class="actividades" id="actividades">
+        <h2> Prototipo Actividades</h2>
+        <div class="actividades__contenedor">
+        </div>
+        
+      </section>
+
+      <footer>
+        <p>&copy; 2026 Swing Ciudad Real. Todos los derechos reservados.</p>
+      </footer>
+    </main>
+    <!-- Modal Video -->
+<div id="modal-video" class="modal">
+  <div class="modal__contenido">
+    <button class="modal__cerrar">&times;</button>
+    <video controls>
+      <source src="./src/assets/videos/SwingCR.mp4" type="video/mp4">
+      Tu navegador no soporta el video
+    </video>
+  </div>
+</div>
+    <!-- Modal Actividad -->
+     <div id="modal-actividad" class="actividad-modal">
+      <div class="actividad-modal__contenido">
+        <button class="actividad-modal__cerrar">&times</button>
+        <h3 id="modal-titulo">Título</h3>
+        <p><strong>Fecha:</strong><span id="modal-fecha">-</span></p>
+        <p><strong>Hora:</strong><span id="modal-hora">-</span></p>
+        <p><strong>Ubicacion:</strong><span id="modal-ubicacion">-</span></p>
+        <p id="modal-descripcion">Descripcion...</p>
+
+      </div>
+
+     </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
