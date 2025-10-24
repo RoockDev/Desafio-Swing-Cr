@@ -437,8 +437,8 @@ if (modal) {
 const botonEliminar = document.getElementById('modal-boton-eliminar');
 const eliminarEvento = () => {
   if (!eventoActualEnModal) return;
-  const confirmar = confirm("¿Seguro que quieres eliminar este evento?");
-  if (confirmar) {
+  
+  
     let eventosGuardados = JSON.parse(localStorage.getItem("eventos"));
     let nuevaListaEventos = [];
 
@@ -458,7 +458,7 @@ const eliminarEvento = () => {
       cerrarModal();
       location.reload();
     
-  }
+  
 
 };
 
